@@ -18,7 +18,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
     public Crear_Cuenta() {
         initComponents();
     }
-    String genero;
+    String genero, usuario, contraseña;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +49,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        enter.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         enter.setText("ENTER");
         enter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +102,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Usuario: ");
 
+        exit.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         exit.setText("EXIT");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +125,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
             }
         });
 
+        showpass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         showpass.setText("Show Password");
         showpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,16 +177,16 @@ public class Crear_Cuenta extends javax.swing.JFrame {
                                 .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(211, 211, 211)
+                .addGap(242, 242, 242)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(69, 69, 69)
                 .addComponent(jLabel1)
-                .addGap(57, 57, 57)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -246,7 +249,8 @@ public class Crear_Cuenta extends javax.swing.JFrame {
             //GENERO OPCION
             if (mujer.isSelected()){
                 genero = "M";
-            }else if (hombre.isSelected()){
+            }
+            if (hombre.isSelected()){
                 genero = "F";
             }        
     }//GEN-LAST:event_enterActionPerformed
