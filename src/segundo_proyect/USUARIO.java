@@ -10,6 +10,7 @@ import java.util.Calendar;
  */
 public class USUARIO {
     
+    //VARIABLES
     private String usuario;
     private String password;
     private int edad;
@@ -17,7 +18,7 @@ public class USUARIO {
     private boolean estado;
     private Calendar fecha;
     
-    // Constructor
+    //CONSTRUCTOR
     public USUARIO(String usuario, char genero, int edad, String password) {
         this.usuario = usuario;
         this.genero = genero;
@@ -75,5 +76,5 @@ public class USUARIO {
     
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }    
+    }
 }
