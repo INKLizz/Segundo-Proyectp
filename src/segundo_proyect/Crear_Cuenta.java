@@ -11,15 +11,16 @@ import javax.swing.JOptionPane;
  * @author Laura Sabillon
  */
 public class Crear_Cuenta extends javax.swing.JFrame {
-
+    
+    private users userDatabase;
     /**
      * Creates new form crear
      */
-    public Crear_Cuenta() {
+    public Crear_Cuenta(users userDatabase) {
+        this.userDatabase = userDatabase;
         initComponents();
     }
-    String genero, usuario, contraseña;
-
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -225,34 +226,64 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
         //OBTENER EDAD VALIDA
         String edadText = edad.getText();
-            try {
-                int age = Integer.parseInt(edadText);
-                    
-                if (age <= 0) {
-                    JOptionPane.showMessageDialog(null, "Edad no puede ser menor o igual a cero.");
-                    edad.setText("");
-                }                    
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Favor ingresar una edad valida.");
+        int age = 0;
+        try {
+            age = Integer.parseInt(edadText);
+            if (age <= 0) {
+                JOptionPane.showMessageDialog(null, "Edad no puede ser menor o igual a cero.");
                 edad.setText("");
+                return;
             }
-                
-            //Falta de usuario o contra /no coincide
-            if (user.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Debe de ingresar un usuario.");
-            }else if (contra.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Debe de ingresar una contraseña.");
-            }else if (!contra.getText().equals(confirmar.getText())){
-                    JOptionPane.showMessageDialog(null, "Contraseñas no coinciden.");
-            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Favor ingresar una edad válida.");
+            edad.setText("");
+            return;
+        }
+
+        //FALTA DE USUARIO (Y/O) CONTRASEÑA (NO COINCIDE)
+        String usuario = user.getText();
+        String contraseña = new String(contra.getPassword());
+        String confirmarContraseña = new String(confirmar.getPassword());
+
+        if (usuario.equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un usuario.");
+            return; 
+        } else if (contraseña.equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar una contraseña.");
+            return; 
+        } else if (!contraseña.equals(confirmarContraseña)) {
+            JOptionPane.showMessageDialog(null, "Contraseñas no coinciden.");
+            return;
+        }
+
+        //  GENERO
+        char genero = ' ';
+        if (mujer.isSelected()) {
+            genero = 'F';
+        } else if (hombre.isSelected()) {
+            genero = 'M';
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un genero.");
+            return;
+        }
+
+        //AGREGAR USUARIO
+        if (userDatabase.agregarUsers(usuario, genero, age, contraseña)) {
+            JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");
             
-            //GENERO OPCION
-            if (mujer.isSelected()){
-                genero = "M";
-            }
-            if (hombre.isSelected()){
-                genero = "F";
-            }        
+            LOGin menu = new LOGin(userDatabase);
+            menu.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al crear el usuario. El nombre de usuario ya existe.");
+            
+            //RESET
+            user.setText("");
+            contra.setText("");
+            confirmar.setText("");
+            edad.setText("");
+            MUJER_HOMBRE.clearSelection();            
+        }
     }//GEN-LAST:event_enterActionPerformed
 
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
@@ -273,7 +304,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOGin log = new LOGin();
+        LOGin log = new LOGin(userDatabase);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
@@ -324,11 +355,12 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        users userDatabase = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Crear_Cuenta().setVisible(true);
+                new Crear_Cuenta(userDatabase).setVisible(true);
             }
         });
     }

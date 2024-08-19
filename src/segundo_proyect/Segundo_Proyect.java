@@ -14,8 +14,8 @@ public class Segundo_Proyect {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        LOGin log = new LOGin();
+        users usersDatabase = new users(100);        
+        LOGin log = new LOGin(usersDatabase);
         log.setVisible(true);
     }
 }

@@ -8,8 +8,6 @@ package segundo_proyect;
  *
  * @author Laura Sabillon
  */
-public class usuarios {
-    
-    String usuarios[][];
+public class Followers {
     
 }

@@ -11,10 +11,13 @@ import javax.swing.*;
  */
 public class LOGin extends javax.swing.JFrame {
 
+    private users userDatabase;
+    
     /**
      * Creates new form NewJFrame
      */
-    public LOGin() {
+    public LOGin(users userDatabase) {
+        this.userDatabase = userDatabase;
         initComponents();
     }
 
@@ -156,26 +159,53 @@ public class LOGin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
-        // TODO add your handling code here:
-    if (USER.getText().equals("") && password.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Favor ingresar un usuario y contraseña.");
-    } 
-    else if (USER.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Favor ingresar un usuario.");
-    } 
-    else if (password.getText().equals("")) {
-        JOptionPane.showMessageDialog(null, "Favor ingresar una contraseña.");
-    } 
-    else {
-        int respuesta = JOptionPane.showConfirmDialog(null, "Desea cambiar a crear cuenta?", "Confirmar",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        //RESTRICTIONS
+        if (USER.getText().equals("") && password.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor ingresar un usuario y contraseña.");
+        } 
+        else if (USER.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor ingresar un usuario.");
+        } 
+        else if (password.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Favor ingresar una contraseña.");
+        } 
+                
+        String usuario = USER.getText();
+        String contraseña = password.getText();
         
-        if (respuesta == JOptionPane.YES_OPTION) {
-            Crear_Cuenta crea = new Crear_Cuenta();
-            crea.setVisible(true);
-            this.dispose();  
+        //SESION EXITOSA
+        if (userDatabase.login(usuario, contraseña)) {
+            JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso.");
+            MENU_HOME menu = new MENU_HOME();
+            menu.setVisible(true);
+            this.dispose();
+        }else{
+            
+            //NO SE UNIO
+            Object[] opciones = {"Intentar de nuevo", "Cambiar cuenta"};
+            int respuesta = JOptionPane.showOptionDialog(null, 
+                "Desea intentar de nuevo o quiere ir a cambiar cuenta?", 
+                "Confirmar", 
+                JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                opciones, 
+                opciones[0]);
+
+            
+            if (respuesta == JOptionPane.YES_OPTION) {
+                    USER.setText("");
+                    password.setText("");                    
             }
-        }   
+
+            //MANDAR A CREAR CUENTA
+            else if (respuesta == JOptionPane.NO_OPTION) {
+                Crear_Cuenta crearCuenta = new Crear_Cuenta(this.userDatabase);
+                crearCuenta.setVisible(true);
+                this.dispose(); 
+            }            
+        }        
     }//GEN-LAST:event_enterActionPerformed
 
     private void USERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_USERActionPerformed
@@ -227,11 +257,11 @@ public class LOGin extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        users userDatabase = new users(100);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LOGin().setVisible(true);
+                new LOGin(userDatabase).setVisible(true);
             }
         });
     }
