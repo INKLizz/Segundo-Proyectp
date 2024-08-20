@@ -24,7 +24,7 @@ public class users {
         } return null;
     }     
     
-    public boolean agregarUsers(String usuario,char genero, int edad, String password){
+    public boolean agregarUsers(String usuario, char genero, int edad, String password){
         if (buscar(usuario) == null){
             for (int indice = 0; indice < usuarios.length ; indice++){
                 if (usuarios[indice] == null){

@@ -8,6 +8,6 @@ package segundo_proyect;
  *
  * @author Laura Sabillon
  */
-public class Twits {
+public class Tweets {
     
 }

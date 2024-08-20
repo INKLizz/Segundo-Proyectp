@@ -193,7 +193,7 @@ public class LOGin extends javax.swing.JFrame {
                 opciones, 
                 opciones[0]);
 
-            
+            //INTENTAR DE NUEVO
             if (respuesta == JOptionPane.YES_OPTION) {
                     USER.setText("");
                     password.setText("");                    

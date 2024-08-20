@@ -13,7 +13,6 @@ public class Segundo_Proyect {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         users usersDatabase = new users(100);        
         LOGin log = new LOGin(usersDatabase);
         log.setVisible(true);

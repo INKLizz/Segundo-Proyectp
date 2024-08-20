@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package segundo_proyect;
-
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Laura Sabillon
@@ -271,7 +269,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         if (userDatabase.agregarUsers(usuario, genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");
             
-            LOGin menu = new LOGin(userDatabase);
+            MENU_HOME menu = new MENU_HOME();
             menu.setVisible(true);
             this.dispose();
         } else {
