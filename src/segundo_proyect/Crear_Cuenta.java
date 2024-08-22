@@ -265,7 +265,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
             return;
         }
 
-        //AGREGAR USUARIO
+        //AGREGAR USUARIO / ERROR
         if (usuario.agregarUsers(username, genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
             MENU_HOME menu = new MENU_HOME();
