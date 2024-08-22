@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
  */
 public class Crear_Cuenta extends javax.swing.JFrame {
     
-    private users userDatabase;
+    private users usuario;
     /**
      * Creates new form crear
      */
-    public Crear_Cuenta(users userDatabase) {
-        this.userDatabase = userDatabase;
+    public Crear_Cuenta(users usuario) {
+        this.usuario = usuario;
         initComponents();
     }
             
@@ -239,7 +239,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
 
         //FALTA DE USUARIO (Y/O) CONTRASEÑA (NO COINCIDE)
-        String usuario = user.getText();
+        String username = user.getText();
         String contraseña = new String(contra.getPassword());
         String confirmarContraseña = new String(confirmar.getPassword());
 
@@ -266,9 +266,8 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
 
         //AGREGAR USUARIO
-        if (userDatabase.agregarUsers(usuario, genero, age, contraseña)) {
-            JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");
-            
+        if (usuario.agregarUsers(username, genero, age, contraseña)) {
+            JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
             MENU_HOME menu = new MENU_HOME();
             menu.setVisible(true);
             this.dispose();
@@ -302,7 +301,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOGin log = new LOGin(userDatabase);
+        LOGin log = new LOGin(usuario);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
@@ -353,12 +352,12 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        users userDatabase = new users(100);        
+        users usuario = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Crear_Cuenta(userDatabase).setVisible(true);
+                new Crear_Cuenta(usuario).setVisible(true);
             }
         });
     }
