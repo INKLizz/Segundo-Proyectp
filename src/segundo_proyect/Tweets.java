@@ -9,6 +9,5 @@ package segundo_proyect;
  * @author Laura Sabillon
  */
 public class Tweets {
-    private Tweets tweet[];
     
 }

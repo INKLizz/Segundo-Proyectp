@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
  */
 public class Crear_Cuenta extends javax.swing.JFrame {
     
-    private users usuario;
+    private users usuarios;
     /**
      * Creates new form crear
      */
     public Crear_Cuenta(users usuario) {
-        this.usuario = usuario;
+        this.usuarios = usuario;
         initComponents();
     }
             
@@ -47,6 +47,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         showpass = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(36, 31, 31));
 
         enter.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         enter.setText("ENTER");
@@ -103,6 +104,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
         exit.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         exit.setText("EXIT");
+        exit.setBorder(null);
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitActionPerformed(evt);
@@ -243,7 +245,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         String contraseña = new String(contra.getPassword());
         String confirmarContraseña = new String(confirmar.getPassword());
 
-        if (usuario.equals("")) {
+        if (username.equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar un usuario.");
             return; 
         } else if (contraseña.equals("")) {
@@ -266,7 +268,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
 
         //AGREGAR USUARIO / ERROR
-        if (usuario.agregarUsers(username, genero, age, contraseña)) {
+        if (usuarios.agregarUsers(username , genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
             MENU_HOME menu = new MENU_HOME();
             menu.setVisible(true);
@@ -301,7 +303,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOGin log = new LOGin(usuario);
+        LOGin log = new LOGin(usuarios);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed

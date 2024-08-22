@@ -13,8 +13,8 @@ public class Segundo_Proyect {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        users usersDatabase = new users(100);        
-        LOGin log = new LOGin(usersDatabase);
+        users usuarios = new users(100);        
+        LOGin log = new LOGin(usuarios);
         log.setVisible(true);
     }
 }

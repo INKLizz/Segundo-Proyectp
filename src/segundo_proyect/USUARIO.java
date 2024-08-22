@@ -17,7 +17,6 @@ public class USUARIO {
     private char genero;
     private boolean estado;
     private Calendar fecha;
-    private Tweets tweet[];
     
     //CONSTRUCTOR
     public USUARIO(String usuario, char genero, int edad, String password) {
@@ -27,7 +26,6 @@ public class USUARIO {
         this.password = password;
         this.fecha = Calendar.getInstance();        
         this.estado = true;
-        this.tweet = tweet;
     }
     
     //GETTERS
@@ -79,7 +77,4 @@ public class USUARIO {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    //TWEETS
-    
 }
