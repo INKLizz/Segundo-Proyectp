@@ -14,15 +14,16 @@ public class users {
     
     public users (int limite){
         usuarios = new USUARIO[limite];
-        limite = 100;
     }
     
-    USUARIO buscar(String usuario){
-        for (USUARIO use: usuarios ){
-            if(use != null && use.getUsuario().equals(usuario));
+    USUARIO buscar(String usuario) {
+        for (USUARIO use : usuarios) {
+            if (use != null && use.getUsuario().equals(usuario)) {
                 return use;
-        } return null;
-    }     
+            }
+        }
+        return null;
+    }
     
     public boolean agregarUsers(String usuario, char genero, int edad, String password){
         if (buscar(usuario) == null){
