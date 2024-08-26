@@ -11,6 +11,7 @@ import java.util.Calendar;
 public class USUARIO {
     
     //VARIABLES
+    private String nombre;
     private String usuario;
     private String password;
     private int edad;
@@ -19,7 +20,8 @@ public class USUARIO {
     private Calendar fecha;
     
     //CONSTRUCTOR
-    public USUARIO(String usuario, char genero, int edad, String password) {
+    public USUARIO(String nombre, String usuario, char genero, int edad, String password) {
+        this.nombre = nombre;
         this.usuario = usuario;
         this.genero = genero;
         this.edad = edad;
@@ -29,6 +31,10 @@ public class USUARIO {
     }
     
     //GETTERS
+    public String getNombre (){
+        return nombre;
+    }
+    
     public String getUsuario() {
         return usuario;
     }
@@ -54,6 +60,10 @@ public class USUARIO {
     }
 
     //SETTERS
+    public void setNombre (String nombre){
+        this.nombre = nombre;
+    }
+    
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
