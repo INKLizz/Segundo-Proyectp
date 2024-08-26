@@ -14,7 +14,7 @@ public class Segundo_Proyect {
      */
     public static void main(String[] args) {
         users usuarios = new users(100);        
-        LOGin log = new LOGin(usuarios);
+        LOG_in log = new LOG_in(usuarios);
         log.setVisible(true);
     }
 }

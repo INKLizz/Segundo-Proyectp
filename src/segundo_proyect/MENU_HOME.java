@@ -9,13 +9,16 @@ package segundo_proyect;
  * @author Laura Sabillon
  */
 public class MENU_HOME extends javax.swing.JFrame {
-
+    private users userDatabase;
     boolean visible = false;
     boolean buscar_mostrar = false;
+    private users usuarios;
+    
     /**
      * Creates new form MENU_HOME
      */
-    public MENU_HOME() {
+    public MENU_HOME(users userDatabase) {
+        this.usuarios =  userDatabase;  
         initComponents();
     }
     
@@ -29,10 +32,17 @@ public class MENU_HOME extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        profile = new javax.swing.JButton();
+        configuracion = new javax.swing.JButton();
         options = new javax.swing.JPanel();
-        MOSTRAR = new javax.swing.JToggleButton();
+        profile = new javax.swing.JToggleButton();
         cerrar_sesion = new javax.swing.JToggleButton();
+        profile_pic = new javax.swing.JLabel();
+        user_tag = new javax.swing.JLabel();
+        mandar = new javax.swing.JToggleButton();
+        hash = new javax.swing.JToggleButton();
+        interac = new javax.swing.JToggleButton();
+        timeline = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -40,10 +50,10 @@ public class MENU_HOME extends javax.swing.JFrame {
         setBackground(new java.awt.Color(35, 32, 32));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        profile.setText("OPCIONES");
-        profile.addActionListener(new java.awt.event.ActionListener() {
+        configuracion.setText("SETTINGS");
+        configuracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileActionPerformed(evt);
+                configuracionActionPerformed(evt);
             }
         });
 
@@ -57,10 +67,10 @@ public class MENU_HOME extends javax.swing.JFrame {
             }
         });
 
-        MOSTRAR.setText("PROFILE");
-        MOSTRAR.addActionListener(new java.awt.event.ActionListener() {
+        profile.setText("PROFILE");
+        profile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MOSTRARActionPerformed(evt);
+                profileActionPerformed(evt);
             }
         });
 
@@ -77,7 +87,7 @@ public class MENU_HOME extends javax.swing.JFrame {
             optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionsLayout.createSequentialGroup()
                 .addGroup(optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MOSTRAR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cerrar_sesion, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addGap(0, 38, Short.MAX_VALUE))
         );
@@ -85,17 +95,69 @@ public class MENU_HOME extends javax.swing.JFrame {
             optionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(MOSTRAR)
+                .addComponent(profile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cerrar_sesion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/rsz_2lady_sillouette.jpg"))); // NOI18N
-        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        profile_pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/rsz_2lady_sillouette.jpg"))); // NOI18N
+        profile_pic.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        profile_pic.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                profile_picAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("@ USUARIO");
+        user_tag.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        user_tag.setText("@ USUARIO");
+        user_tag.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                user_tagAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        mandar.setText("MANDAR TWEET");
+        mandar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mandarActionPerformed(evt);
+            }
+        });
+
+        hash.setText("BUSCAR HASHTAG");
+        hash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hashActionPerformed(evt);
+            }
+        });
+
+        interac.setText("INTERACCIONES");
+        interac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                interacActionPerformed(evt);
+            }
+        });
+
+        timeline.setText("TIMELINE");
+        timeline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timelineActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("MENCIONES: ");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setText("TIMELINE TWEETS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,42 +167,77 @@ public class MENU_HOME extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(profile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(31, 31, 31)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                        .addComponent(configuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mandar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(interac, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(hash, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(timeline, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                    .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(profile_pic))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(225, 225, 225)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 89, Short.MAX_VALUE)))
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profile_pic, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(profile, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(configuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(options, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(mandar)
+                .addGap(18, 18, 18)
+                .addComponent(interac)
+                .addGap(18, 18, 18)
+                .addComponent(hash)
+                .addGap(18, 18, 18)
+                .addComponent(timeline)
+                .addContainerGap(173, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addGap(32, 32, 32))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MOSTRARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MOSTRARActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MOSTRARActionPerformed
-
     private void profileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileActionPerformed
+        // TODO add your handling code here:
+        PROFILE pf = new PROFILE ();
+        pf.setVisible(true);
+        this.dispose();       
+    }//GEN-LAST:event_profileActionPerformed
+
+    private void configuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionActionPerformed
         // TODO add your handling code here:
         visible = !visible;
         options.setVisible(visible);
-    }//GEN-LAST:event_profileActionPerformed
+    }//GEN-LAST:event_configuracionActionPerformed
 
     private void optionsAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_optionsAncestorAdded
         // TODO add your handling code here:
@@ -151,7 +248,37 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // TODO add your handling code here:
+        LOG_in log = new LOG_in(userDatabase);
+        log.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_cerrar_sesionActionPerformed
+
+    private void profile_picAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_profile_picAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profile_picAncestorAdded
+
+    private void user_tagAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_user_tagAncestorAdded
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_user_tagAncestorAdded
+
+    private void mandarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mandarActionPerformed
+        // TODO add your handling code here:
+        MANDAR_TWEETS twit = new MANDAR_TWEETS();
+        twit.setVisible(true);
+    }//GEN-LAST:event_mandarActionPerformed
+
+    private void hashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hashActionPerformed
+
+    private void interacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_interacActionPerformed
+
+    private void timelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timelineActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timelineActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,23 +306,31 @@ public class MENU_HOME extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MENU_HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        users usuario = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MENU_HOME().setVisible(true);
+                new MENU_HOME(usuario).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton MOSTRAR;
     private javax.swing.JToggleButton cerrar_sesion;
+    private javax.swing.JButton configuracion;
+    private javax.swing.JToggleButton hash;
+    private javax.swing.JToggleButton interac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JToggleButton mandar;
     private javax.swing.JPanel options;
-    private javax.swing.JButton profile;
+    private javax.swing.JToggleButton profile;
+    private javax.swing.JLabel profile_pic;
+    private javax.swing.JToggleButton timeline;
+    private javax.swing.JLabel user_tag;
     // End of variables declaration//GEN-END:variables
     
 }

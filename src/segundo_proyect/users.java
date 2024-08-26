@@ -40,6 +40,11 @@ public class users {
     
     public boolean login(String usuario, String password) {
         USUARIO user = buscar(usuario);
-        return user != null && user.getPassword().equals(password);
+        if (user != null && user.getPassword().equals(password)) {
+            logged_in.setEnSesion(user);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

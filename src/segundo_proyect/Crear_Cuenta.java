@@ -104,7 +104,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
         exit.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         exit.setText("EXIT");
-        exit.setBorder(null);
+        exit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitActionPerformed(evt);
@@ -146,13 +146,6 @@ public class Crear_Cuenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(enter, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(88, 88, 88))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(showpass)
-                            .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(122, 122, 122))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -176,7 +169,17 @@ public class Crear_Cuenta extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(154, 154, 154)
                                 .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(showpass))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(122, 122, 122))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(242, 242, 242)
                 .addComponent(jLabel1)
@@ -204,10 +207,12 @@ public class Crear_Cuenta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(contra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(confirmar, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(confirmar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(showpass)
                 .addGap(34, 34, 34)
@@ -224,22 +229,6 @@ public class Crear_Cuenta extends javax.swing.JFrame {
     private void enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterActionPerformed
         // TODO add your handling code here:
 
-        //OBTENER EDAD VALIDA
-        String edadText = edad.getText();
-        int age = 0;
-        try {
-            age = Integer.parseInt(edadText);
-            if (age <= 0) {
-                JOptionPane.showMessageDialog(null, "Edad no puede ser menor o igual a cero.");
-                edad.setText("");
-                return;
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Favor ingresar una edad válida.");
-            edad.setText("");
-            return;
-        }
-
         //FALTA DE USUARIO (Y/O) CONTRASEÑA (NO COINCIDE)
         String username = user.getText();
         String contraseña = new String(contra.getPassword());
@@ -255,6 +244,22 @@ public class Crear_Cuenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Contraseñas no coinciden.");
             return;
         }
+        
+        //OBTENER EDAD VALIDA
+        String edadText = edad.getText();
+        int age = 0;
+        try {
+            age = Integer.parseInt(edadText);
+            if (age <= 12) {
+                JOptionPane.showMessageDialog(null, "Usuario tiene que ser mayor de 12 años.");
+                edad.setText("");
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Favor ingresar una edad válida.");
+            edad.setText("");
+            return;
+        }        
 
         //  GENERO
         char genero = ' ';
@@ -270,7 +275,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         //AGREGAR USUARIO / ERROR
         if (usuarios.agregarUsers(username , genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
-            MENU_HOME menu = new MENU_HOME();
+            MENU_HOME menu = new MENU_HOME(usuarios);
             menu.setVisible(true);
             this.dispose();
         } else {
@@ -303,7 +308,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOGin log = new LOGin(usuarios);
+        LOG_in log = new LOG_in(usuarios);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
