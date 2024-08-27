@@ -156,7 +156,7 @@ public class PROFILE extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 350, 320));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1070, 250));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1060, 250));
 
         RETURN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RETURN.setText("DESACTIVAR CUENTA");

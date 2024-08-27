@@ -10,12 +10,15 @@ package segundo_proyect;
  */
 public class users {
     
+    //LLAMMAR VARIABLES
     private USUARIO usuarios [];    
+    private static USUARIO EnSesion = null;    
     
     public users (int limite){
         usuarios = new USUARIO[limite];
     }
     
+    //BUSCAR Y AGREGAR EL USUARIO (SI YA NO ESTA EN EL SISTEMA)
     USUARIO buscar(String usuario) {
         for (USUARIO use : usuarios) {
             if (use != null && use.getUsuario().equals(usuario)) {
@@ -37,8 +40,9 @@ public class users {
         }
         return false;
     }
-    
-    public boolean login(String usuario, String password) {
+        
+    //VERIFICAR LOGIN INICIADO
+    public boolean Login(String usuario, String password) {
         USUARIO user = buscar(usuario);
         if (user != null && user.getPassword().equals(password)) {
             logged_in.setEnSesion(user);

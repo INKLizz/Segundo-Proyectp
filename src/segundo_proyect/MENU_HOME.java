@@ -9,6 +9,8 @@ package segundo_proyect;
  * @author Laura Sabillon
  */
 public class MENU_HOME extends javax.swing.JFrame {
+    
+    //LLAMAR VARIABLES
     private users userDatabase;
     boolean visible = false;
     boolean buscar_mostrar = false;
@@ -17,6 +19,7 @@ public class MENU_HOME extends javax.swing.JFrame {
     /**
      * Creates new form MENU_HOME
      */
+    
     public MENU_HOME(users userDatabase) {
         this.usuarios =  userDatabase;  
         initComponents();
@@ -187,7 +190,7 @@ public class MENU_HOME extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 89, Short.MAX_VALUE)))
+                        .addGap(0, 218, Short.MAX_VALUE)))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(

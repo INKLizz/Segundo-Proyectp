@@ -6,16 +6,19 @@ package segundo_proyect;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 
-
 /**
  *
  * @author Laura Sabillon
  */
 public class MANDAR_TWEETS extends javax.swing.JFrame {
 
+    private USUARIO user;
+    private Tweets twits;
+    
     /**
      * Creates new form MANDAR_TWEETS
      */
+    
     public MANDAR_TWEETS() {
         initComponents();
     }
@@ -133,9 +136,8 @@ public class MANDAR_TWEETS extends javax.swing.JFrame {
     private void textingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textingKeyPressed
         // TODO add your handling code here:
         String caracter = texting.getText();
-        if (caracter.length() > 140) {
+        if (caracter.length() > 139) {
             texting.setEditable(false);
-            JOptionPane.showMessageDialog(null,"No se permiten mas de 140 caracteres.");
         }
         if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             texting.setEditable(true);
