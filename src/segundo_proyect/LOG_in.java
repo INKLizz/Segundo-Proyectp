@@ -207,15 +207,15 @@ public class LOG_in extends javax.swing.JFrame {
             String contraseña = password.getText();
 
             //SESION EXITOSA
-            if (userDatabase.login(usuario, contraseña)) {
+            if (userDatabase.Login(usuario, contraseña)) {
                 JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso.");
                 MENU_HOME menu = new MENU_HOME(this.userDatabase);
                 menu.setVisible(true);
                 this.dispose();
             }else{
 
-                //NO SE UNIO
-                Object[] opciones = {"Intentar de nuevo", "Cambiar cuenta"};
+                //NO SE UNIO MENSAJE DE CAMBIAR A CREAR CUENTA
+                Object[] opciones = {"Intentar de nuevo", "Cambiar a crear cuenta"};
                 int respuesta = JOptionPane.showOptionDialog(null,
                     "Desea intentar de nuevo o quiere ir a cambiar cuenta?",
                     "Confirmar",

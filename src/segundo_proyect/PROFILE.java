@@ -10,6 +10,7 @@ package segundo_proyect;
  */
 public class PROFILE extends javax.swing.JFrame {
     private users usuarios;
+    private Tweets twits;
 
     /**
      * Creates new form PROFILE
@@ -136,6 +137,15 @@ public class PROFILE extends javax.swing.JFrame {
 
         search_show.setColumns(20);
         search_show.setRows(5);
+        search_show.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                search_showAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         search_show.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 search_showKeyPressed(evt);
@@ -146,7 +156,7 @@ public class PROFILE extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 350, 320));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1070, 250));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1060, 250));
 
         RETURN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RETURN.setText("DESACTIVAR CUENTA");
@@ -190,6 +200,11 @@ public class PROFILE extends javax.swing.JFrame {
             menu.setVisible(true);
             this.dispose();        
     }//GEN-LAST:event_go_backActionPerformed
+
+    private void search_showAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_search_showAncestorAdded
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_search_showAncestorAdded
 
     /**
      * @param args the command line arguments
