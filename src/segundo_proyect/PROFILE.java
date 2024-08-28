@@ -3,19 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package segundo_proyect;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 /**
  *
  * @author Laura Sabillon
  */
 public class PROFILE extends javax.swing.JFrame {
-    private users usuarios;
+    private users userDatabase;
     private Tweets twits;
 
     /**
      * Creates new form PROFILE
      */
-    public PROFILE() {
+    public PROFILE(users userDatabase) {
+        this.userDatabase = userDatabase;
         initComponents();
     }
 
@@ -28,23 +32,23 @@ public class PROFILE extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel7 = new javax.swing.JLabel();
+        folowing = new javax.swing.JLabel();
         TWEETS = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        usersss = new javax.swing.JLabel();
+        gender = new javax.swing.JLabel();
+        edad = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        age = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         buscar = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        folowww = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
         FOLLOWERS = new javax.swing.JToggleButton();
         FOLLOWING = new javax.swing.JToggleButton();
         CONTAINER = new javax.swing.JScrollPane();
@@ -58,82 +62,127 @@ public class PROFILE extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 51, 51));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("0");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 37, -1));
+        folowing.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        folowing.setText("0");
+        getContentPane().add(folowing, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 350, 37, -1));
 
         TWEETS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         TWEETS.setText("TWEETS");
-        getContentPane().add(TWEETS, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 195, -1));
+        getContentPane().add(TWEETS, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 195, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Followers: ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 250, 100, 26));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 100, 26));
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 730, 1057, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/rsz_2lady_sillouette.jpg"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 150));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/male_silouette.jpg"))); // NOI18N
+        jLabel3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel3AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 100, 100));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setText("@");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 100, 26));
+        usersss.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        usersss.setText("@");
+        usersss.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                usersssAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(usersss, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 160, 20));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("o");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, 37, -1));
+        gender.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        gender.setText("o");
+        gender.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                genderAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(gender, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 37, -1));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Edad:");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 100, 26));
+        edad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        edad.setText("Edad:");
+        getContentPane().add(edad, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 50, 26));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel11.setText("Genero:");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 250, 100, 26));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, -1, 26));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("o");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 37, -1));
+        age.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        age.setText("o");
+        age.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ageAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 37, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Following");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 100, 26));
+        jLabel4.setText("Following:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 100, 26));
 
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarActionPerformed(evt);
             }
         });
-        getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, 230, -1));
+        getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 440, 230, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Usuario: ");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 100, 26));
+        usuario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        usuario.setText("Usuario: ");
+        getContentPane().add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Fecha de union: ");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 146, 26));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, 146, 26));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("BUSCAR :");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 360, 100, 26));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 440, 100, 26));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel15.setText("0");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, 37, -1));
+        folowww.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        folowww.setText("0");
+        getContentPane().add(folowww, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 37, -1));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel16.setText("0");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 37, -1));
+        date.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        date.setText("0");
+        date.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                dateAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        getContentPane().add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 150, -1));
 
         FOLLOWERS.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         FOLLOWERS.setText("FOLLOWERS");
-        getContentPane().add(FOLLOWERS, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 195, -1));
+        getContentPane().add(FOLLOWERS, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 195, -1));
 
         FOLLOWING.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         FOLLOWING.setText("FOLLOWING");
-        getContentPane().add(FOLLOWING, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 195, -1));
-        getContentPane().add(CONTAINER, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 590, 260));
+        getContentPane().add(FOLLOWING, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 440, 195, -1));
+        getContentPane().add(CONTAINER, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 720, 260));
 
         search_show.setColumns(20);
         search_show.setRows(5);
@@ -153,10 +202,10 @@ public class PROFILE extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(search_show);
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 350, 320));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 480, 350, 200));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1060, 250));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1210, 250));
 
         RETURN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RETURN.setText("DESACTIVAR CUENTA");
@@ -165,7 +214,7 @@ public class PROFILE extends javax.swing.JFrame {
                 RETURNActionPerformed(evt);
             }
         });
-        getContentPane().add(RETURN, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 260, -1));
+        getContentPane().add(RETURN, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 330, 260, -1));
 
         go_back.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         go_back.setText("GO BACK");
@@ -174,7 +223,7 @@ public class PROFILE extends javax.swing.JFrame {
                 go_backActionPerformed(evt);
             }
         });
-        getContentPane().add(go_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, 260, -1));
+        getContentPane().add(go_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 260, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -196,7 +245,7 @@ public class PROFILE extends javax.swing.JFrame {
 
     private void go_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_go_backActionPerformed
         // TODO add your handling code here:
-            MENU_HOME menu = new MENU_HOME(usuarios);
+            MENU_HOME menu = new MENU_HOME(this.userDatabase);
             menu.setVisible(true);
             this.dispose();        
     }//GEN-LAST:event_go_backActionPerformed
@@ -205,6 +254,83 @@ public class PROFILE extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_search_showAncestorAdded
+
+    private void usersssAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_usersssAncestorAdded
+        // TODO add your handling code here:
+        USUARIO usuario = userDatabase.getUserInSession();
+        if (usuario != null) {
+            String username = usuario.getUsuario();
+            usersss.setText("@" + username);
+        } else {
+            usersss.setText("NoN");
+        }        
+    }//GEN-LAST:event_usersssAncestorAdded
+
+    private void ageAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ageAncestorAdded
+        // TODO add your handling code here:
+        USUARIO userInSession = userDatabase.getUserInSession();
+        if (userInSession != null) {
+            int edad = userInSession.getEdad();
+            age.setText(String.valueOf(edad));
+        } else {
+            age.setText("NoN");
+        }
+    }//GEN-LAST:event_ageAncestorAdded
+
+    private void genderAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_genderAncestorAdded
+        // TODO add your handling code here:
+        USUARIO usuario = userDatabase.getUserInSession();
+        if (usuario != null) {
+            char genero = usuario.getGenero();
+            gender.setText(String.valueOf(genero));
+        } else {
+            gender.setText("NoN");
+        }               
+    }//GEN-LAST:event_genderAncestorAdded
+
+    private void dateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dateAncestorAdded
+        // TODO add your handling code here:
+        USUARIO usuario = userDatabase.getUserInSession();
+        if (usuario != null) {
+            Calendar fecha = usuario.getFecha();
+            if (fecha != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String fechaString = dateFormat.format(fecha.getTime());
+                date.setText(fechaString);
+            }
+        } else {
+            date.setText("NoN");
+        }
+    }//GEN-LAST:event_dateAncestorAdded
+
+    private void jLabel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel3AncestorAdded
+        // TODO add your handling code here:
+        USUARIO usuario = userDatabase.getUserInSession();
+         if (usuario != null) {
+             char genero = usuario.getGenero();
+             ImageIcon icon = null;
+
+             try {
+                 if (genero == 'M') {
+                     icon = new ImageIcon(getClass().getResource("/segundo_proyect/male_silouette.jpg"));
+                 } else if (genero == 'F') {
+                     icon = new ImageIcon(getClass().getResource("/segundo_proyect/female_silouette.jpg"));
+                 }
+
+                 if (icon.getImageLoadStatus() != java.awt.MediaTracker.COMPLETE) {
+                     System.err.println("Error al cargar la imagen: " + icon.getDescription());
+                 }
+             } catch (Exception e) {
+                 System.err.println("Error al cargar la imagen: " + e.getMessage());
+             }
+
+             if (icon != null) {
+                 jLabel3.setIcon(icon);
+             }
+         } else {
+             System.err.println("El usuario en sesión es nulo.");
+         }
+    }//GEN-LAST:event_jLabel3AncestorAdded
 
     /**
      * @param args the command line arguments
@@ -232,11 +358,11 @@ public class PROFILE extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PROFILE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        users userDatabase = new users(100);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PROFILE().setVisible(true);
+                new PROFILE(userDatabase).setVisible(true);
             }
         });
     }
@@ -247,25 +373,25 @@ public class PROFILE extends javax.swing.JFrame {
     private javax.swing.JToggleButton FOLLOWING;
     private javax.swing.JToggleButton RETURN;
     private javax.swing.JToggleButton TWEETS;
+    private javax.swing.JLabel age;
     private javax.swing.JTextField buscar;
+    private javax.swing.JLabel date;
+    private javax.swing.JLabel edad;
+    private javax.swing.JLabel folowing;
+    private javax.swing.JLabel folowww;
+    private javax.swing.JLabel gender;
     private javax.swing.JToggleButton go_back;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea search_show;
+    private javax.swing.JLabel usersss;
+    private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,7 +23,7 @@ public class Tweets {
     }
 
     // GETTERS
-    public String getContent() {
+    public String getContenido() {
         return twit;
     }
 
@@ -36,7 +36,7 @@ public class Tweets {
     }
 
     // SETTERS
-    public void setContent(String twit) {
+    public void setContenido(String twit) {
         this.twit = twit;
     }
 

@@ -4,24 +4,26 @@
  */
 package segundo_proyect;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Laura Sabillon
  */
 public class MENU_HOME extends javax.swing.JFrame {
     
+    
     //LLAMAR VARIABLES
     private users userDatabase;
     boolean visible = false;
     boolean buscar_mostrar = false;
-    private users usuarios;
     
     /**
      * Creates new form MENU_HOME
      */
     
     public MENU_HOME(users userDatabase) {
-        this.usuarios =  userDatabase;  
+        this.userDatabase =  userDatabase;  
         initComponents();
     }
     
@@ -104,7 +106,7 @@ public class MENU_HOME extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        profile_pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/rsz_2lady_sillouette.jpg"))); // NOI18N
+        profile_pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/male_silouette.jpg"))); // NOI18N
         profile_pic.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
         profile_pic.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -176,16 +178,17 @@ public class MENU_HOME extends javax.swing.JFrame {
                         .addComponent(interac, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                         .addComponent(hash, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                         .addComponent(timeline, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                    .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(profile_pic))
+                    .addComponent(profile_pic)
+                    .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(225, 225, 225)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(226, 226, 226)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
@@ -197,8 +200,8 @@ public class MENU_HOME extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(profile_pic, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(profile_pic)
+                .addGap(24, 24, 24)
                 .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(configuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,7 +234,7 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void profileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileActionPerformed
         // TODO add your handling code here:
-        PROFILE pf = new PROFILE ();
+        PROFILE pf = new PROFILE (this.userDatabase);
         pf.setVisible(true);
         this.dispose();       
     }//GEN-LAST:event_profileActionPerformed
@@ -251,18 +254,46 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // TODO add your handling code here:
-        LOG_in log = new LOG_in(userDatabase);
+        LOG_in log = new LOG_in(this.userDatabase);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cerrar_sesionActionPerformed
 
     private void profile_picAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_profile_picAncestorAdded
         // TODO add your handling code here:
+        USUARIO usuario = userDatabase.getUserInSession();
+         if (usuario != null) {
+             char genero = usuario.getGenero();
+             ImageIcon icon = null;
+
+             try {
+                 if (genero == 'M') {
+                     icon = new ImageIcon(getClass().getResource("/segundo_proyect/male_silouette.jpg"));
+                 } else if (genero == 'F') {
+                     icon = new ImageIcon(getClass().getResource("/segundo_proyect/female_silouette.jpg"));
+                 }
+
+                 if (icon.getImageLoadStatus() != java.awt.MediaTracker.COMPLETE) {
+                     System.err.println("Error al cargar la imagen: " + icon.getDescription());
+                 }
+             } catch (Exception e) {
+                 System.err.println("Error al cargar la imagen: " + e.getMessage());
+             }
+
+             if (icon != null) {
+                 profile_pic.setIcon(icon);
+             }
+         } else {
+             System.err.println("El usuario en sesión es nulo.");
+         }        
+        
     }//GEN-LAST:event_profile_picAncestorAdded
 
     private void user_tagAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_user_tagAncestorAdded
         // TODO add your handling code here:
+        String ensesion = userDatabase.getUsernameInSession();
         
+        user_tag.setText("@"  + ensesion);
     }//GEN-LAST:event_user_tagAncestorAdded
 
     private void mandarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mandarActionPerformed
@@ -309,12 +340,12 @@ public class MENU_HOME extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MENU_HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        users usuario = new users(100);        
+        users userDatabase = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MENU_HOME(usuario).setVisible(true);
+                new MENU_HOME(userDatabase).setVisible(true);
             }
         });
     }

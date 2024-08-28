@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
  * @author Laura Sabillon
  */
 public class Crear_Cuenta extends javax.swing.JFrame {
-    private users usuarios;
+    private users userDatabase;
     /**
      * Creates new form crear
      */
-    public Crear_Cuenta(users usuario) {
-        this.usuarios = usuario;
+    public Crear_Cuenta(users userDatabase) {
+        this.userDatabase = userDatabase;
         initComponents();
     }
             
@@ -294,9 +294,9 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
                 
         //AGREGAR USUARIO / ERROR
-        if (usuarios.agregarUsers(name, username , genero, age, contraseña)) {
+        if (userDatabase.agregarUsers(name, username , genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
-            MENU_HOME menu = new MENU_HOME(usuarios);
+            MENU_HOME menu = new MENU_HOME(this.userDatabase);
             menu.setVisible(true);
             this.dispose();
         } else {
@@ -329,7 +329,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOG_in log = new LOG_in(usuarios);
+        LOG_in log = new LOG_in(this.userDatabase);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
@@ -384,12 +384,12 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        users usuario = new users(100);        
+        users userDatabase = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Crear_Cuenta(usuario).setVisible(true);
+                new Crear_Cuenta(userDatabase).setVisible(true);
             }
         });
     }

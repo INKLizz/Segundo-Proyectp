@@ -203,11 +203,11 @@ public class LOG_in extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Favor ingresar una contraseña.");
         }else{
 
-            String usuario = USER.getText();
+            String username = USER.getText();
             String contraseña = password.getText();
 
             //SESION EXITOSA
-            if (userDatabase.Login(usuario, contraseña)) {
+            if (userDatabase.Login(username, contraseña)) {
                 JOptionPane.showMessageDialog(null, "Inicio de sesion exitoso.");
                 MENU_HOME menu = new MENU_HOME(this.userDatabase);
                 menu.setVisible(true);
