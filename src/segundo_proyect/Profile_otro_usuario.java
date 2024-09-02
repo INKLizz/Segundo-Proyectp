@@ -27,7 +27,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel7 = new javax.swing.JLabel();
-        jToggleButton11 = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -41,12 +40,11 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jToggleButton12 = new javax.swing.JToggleButton();
         RETURN = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jLabel17 = new javax.swing.JLabel();
         jToggleButton14 = new javax.swing.JToggleButton();
-        jToggleButton15 = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -54,10 +52,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("0");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 37, -1));
-
-        jToggleButton11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jToggleButton11.setText("TWEETS");
-        getContentPane().add(jToggleButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 195, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Followers: ");
@@ -109,10 +103,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         jLabel16.setText("0");
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, 37, -1));
 
-        jToggleButton12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jToggleButton12.setText("FOLLOWERS");
-        getContentPane().add(jToggleButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, 240, -1));
-
         RETURN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RETURN.setText("GO BACK");
         RETURN.addActionListener(new java.awt.event.ActionListener() {
@@ -121,23 +111,18 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(RETURN, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 260, -1));
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 760, 260));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 720, 260));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 200));
 
         jToggleButton14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jToggleButton14.setText("FOLLOW");
-        getContentPane().add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 195, -1));
+        jToggleButton14.setText("FOLLOW/ UNFOLLOW");
+        getContentPane().add(jToggleButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 230, -1));
 
-        jToggleButton15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jToggleButton15.setText("FOLLOWING");
-        jToggleButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton15ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jToggleButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 260, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Tweets:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -147,10 +132,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_RETURNActionPerformed
-
-    private void jToggleButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton15ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +170,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton RETURN;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -205,9 +187,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JToggleButton jToggleButton11;
-    private javax.swing.JToggleButton jToggleButton12;
     private javax.swing.JToggleButton jToggleButton14;
-    private javax.swing.JToggleButton jToggleButton15;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,7 +10,7 @@ import java.util.Calendar;
  */
 public class USUARIO {
     
-    //VARIABLES
+    // VARIABLES
     private String nombre;
     private String usuario;
     private String password;
@@ -19,8 +19,9 @@ public class USUARIO {
     private boolean estado;
     private Calendar fecha;
     private boolean enSession;
+
     
-    //CONSTRUCTOR
+    // CONSTRUCTOR
     public USUARIO(String nombre, String usuario, char genero, int edad, String password) {
         this.nombre = nombre;
         this.usuario = usuario;
@@ -32,7 +33,7 @@ public class USUARIO {
         this.enSession = false;
     }
     
-    //GETTERS & SETTERS
+    // GETTERS & SETTERS
     public String getNombre() { 
         return nombre; 
     }

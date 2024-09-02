@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package segundo_proyect;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 /**
  *
@@ -11,47 +12,41 @@ import java.util.Calendar;
 public class Tweets {
     
     // VARIABLES
-    private String twit;
-    private USUARIO user;
+    private String contenido;
+    private String autor; 
     private Calendar publicado;
 
-    // CONSTRUCTOR
-    public Tweets(String twit, USUARIO user) {
-        this.twit = twit;
-        this.user = user;
-        this.publicado = Calendar.getInstance();
+    public Tweets(String contenido, users user) {
+        this.contenido = contenido;
+        this.autor = user.getUsernameInSession(); 
+        this.publicado = Calendar.getInstance();        
     }
 
-    // GETTERS
     public String getContenido() {
-        return twit;
+        return contenido;
     }
 
-    public USUARIO getUser() {
-        return user;
+    public String getAutor() {
+        return autor; 
     }
 
-    public Calendar getFechaPublicada() {
-        return publicado;
+    public String publicarTweet() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedTime = formatter.format(publicado.getTime());
+        
+        String tweetDetails = "Usuario: " + autor + "\n" + 
+                              contenido + "\n" +
+                              "Fecha de publicación: " + formattedTime + "\n";
+        return tweetDetails; 
     }
-
-    // SETTERS
-    public void setContenido(String twit) {
-        this.twit = twit;
+    
+    public boolean containsMention(users currentUser) {
+        String usernameToCheck = "@" + currentUser.getUsernameInSession();
+        return contenido.contains(usernameToCheck);
     }
-
-    public void setUser(USUARIO user) {
-        this.user = user;
-    }
-
-    public void setFechaPublicada(Calendar publicado) {
-        this.publicado = publicado;
-    }
-
-    //PUBLICAR
-    public void publicarTweet() {
-            System.out.println("Autor: " + user.getUsuario());
-            System.out.println(twit);
-            System.out.println("Fecha de publicacion: " + publicado.getTime());
-    }
+    
+    public boolean containsHashtag(String hashtag) {
+        String hashtagCheck = "#" + hashtag;
+        return contenido.contains(hashtagCheck);
+    }    
 }

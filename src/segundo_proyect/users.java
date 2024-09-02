@@ -66,10 +66,31 @@ public class users {
     //DATA RETRIEVE
     public USUARIO getUserInSession() {
         for (USUARIO user : usuarios) {
-            if (user != null && user.getEnSession()) { 
-                return user; 
+            if (user != null) {
+                if (user.getEnSession()) {
+                    return user;
+                }
             }
         }
-        return null; 
+        return null;
+    } 
+    
+    //FUERA DE SESSION
+    public boolean outSession() {
+        USUARIO user = getUserInSession();
+        if (user != null) {
+            user.setEnSession(false);
+            return true;
+        }
+        return false;
+    }    
+    
+    //USUARIOS SHOWCASE
+    public void printUSUARIOS() {
+        for (USUARIO user : usuarios) {
+            if (user != null) {
+                System.out.println(user.getUsuario());
+            }
+        }
     }    
 }
