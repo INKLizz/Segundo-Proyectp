@@ -18,7 +18,9 @@ public class USUARIO {
     private char genero;
     private boolean estado;
     private Calendar fecha;
-    
+    private int followers;
+    private int following;
+            
     //CONSTRUCTOR
     public USUARIO(String nombre, String usuario, char genero, int edad, String password) {
         this.nombre = nombre;
@@ -28,6 +30,8 @@ public class USUARIO {
         this.password = password;
         this.fecha = Calendar.getInstance();        
         this.estado = true;
+        this.followers = 0;
+        this.following= 0;
     }
     
     //GETTERS
@@ -58,6 +62,14 @@ public class USUARIO {
     public boolean isEstado() {
         return estado;
     }
+    
+    public int getFollowers() {
+    return followers;
+    }
+
+    public int getFollowing() {
+    return following;
+    }
 
     //SETTERS
     public void setNombre (String nombre){
@@ -87,4 +99,12 @@ public class USUARIO {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public void setFollowers(int followers){
+        this.followers=followers;
+    }
+    public void setFollowing(int following){
+        this.following = following;
+    }
+    
 }

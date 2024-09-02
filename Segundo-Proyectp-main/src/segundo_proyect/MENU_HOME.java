@@ -11,24 +11,31 @@ import java.awt.Color;
  * @author Laura Sabillon
  */
 public class MENU_HOME extends javax.swing.JFrame {
-    
+
     //LLAMAR VARIABLES
     private users userDatabase;
     boolean visible = false;
     boolean buscar_mostrar = false;
     private users usuarios;
-    
+
     /**
      * Creates new form MENU_HOME
      */
-    
+
     public MENU_HOME(users userDatabase) {
-        this.usuarios =  userDatabase;  
+        this.userDatabase = userDatabase;
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         options.setBackground(Color.WHITE);
+        actualizarMenu();
     }
-    
+
+    private void actualizarMenu() {
+        USUARIO usuarioActual = logged_in.getEnSesion();
+        userTag.setText("@ " + usuarioActual.getUsuario());
+        
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +51,6 @@ public class MENU_HOME extends javax.swing.JFrame {
         profile = new javax.swing.JToggleButton();
         cerrar_sesion = new javax.swing.JToggleButton();
         profile_pic = new javax.swing.JLabel();
-        user_tag = new javax.swing.JLabel();
         mandar = new javax.swing.JToggleButton();
         hash = new javax.swing.JToggleButton();
         interac = new javax.swing.JToggleButton();
@@ -53,6 +59,7 @@ public class MENU_HOME extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        userTag = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(35, 32, 32));
@@ -108,27 +115,6 @@ public class MENU_HOME extends javax.swing.JFrame {
 
         profile_pic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/UsuarioAnonimo (1).png"))); // NOI18N
         profile_pic.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-        profile_pic.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                profile_picAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        user_tag.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        user_tag.setText("@ USUARIO");
-        user_tag.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                user_tagAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         mandar.setText("MANDAR TWEET");
         mandar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,15 +162,16 @@ public class MENU_HOME extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(configuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(mandar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                                .addComponent(interac, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                                .addComponent(hash, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
-                                .addComponent(timeline, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                            .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(profile_pic)))
+                            .addComponent(profile_pic)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(userTag, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(configuracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(mandar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(interac, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(hash, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                    .addComponent(timeline, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -208,8 +195,8 @@ public class MENU_HOME extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(profile_pic, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(user_tag, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userTag, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(configuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -242,39 +229,31 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void profileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileActionPerformed
         // TODO add your handling code here:
-        PROFILE pf = new PROFILE ();
+        PROFILE pf = new PROFILE();
         pf.setVisible(true);
-        this.dispose();       
+        this.dispose();
     }//GEN-LAST:event_profileActionPerformed
 
     private void configuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_configuracionActionPerformed
-        // TODO add your handling code here:
         visible = !visible;
         options.setVisible(visible);
     }//GEN-LAST:event_configuracionActionPerformed
 
     private void optionsAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_optionsAncestorAdded
         // TODO add your handling code here:
-        if (visible == false){
+        if (visible == false) {
             options.setVisible(false);
-        }        
+        }
     }//GEN-LAST:event_optionsAncestorAdded
 
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // TODO add your handling code here:
         LOG_in log = new LOG_in(userDatabase);
         log.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_cerrar_sesionActionPerformed
 
-    private void profile_picAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_profile_picAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_profile_picAncestorAdded
-
-    private void user_tagAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_user_tagAncestorAdded
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_user_tagAncestorAdded
 
     private void mandarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mandarActionPerformed
         // TODO add your handling code here:
@@ -291,8 +270,9 @@ public class MENU_HOME extends javax.swing.JFrame {
     }//GEN-LAST:event_interacActionPerformed
 
     private void timelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timelineActionPerformed
-        // TODO add your handling code here:
+        // TOgDO add your handling code here:
     }//GEN-LAST:event_timelineActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -320,7 +300,7 @@ public class MENU_HOME extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MENU_HOME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        users usuario = new users(100);        
+        users usuario = new users(100);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -345,7 +325,7 @@ public class MENU_HOME extends javax.swing.JFrame {
     private javax.swing.JToggleButton profile;
     private javax.swing.JLabel profile_pic;
     private javax.swing.JToggleButton timeline;
-    private javax.swing.JLabel user_tag;
+    public javax.swing.JLabel userTag;
     // End of variables declaration//GEN-END:variables
-    
+
 }

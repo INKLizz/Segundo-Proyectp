@@ -10,17 +10,17 @@ package segundo_proyect;
  */
 public class logged_in {
    
-    private static USUARIO EnSesion = null;
+    private static USUARIO enSesion = null ;
     
     public static USUARIO getEnSesion() {
-        return EnSesion;
+        return enSesion;
     }
     
     public static void setEnSesion(USUARIO user) {
-        EnSesion = user;
+        enSesion = user;
     }
     
     public static void logout() {
-        EnSesion = null;
+        enSesion = null;
     }
 }

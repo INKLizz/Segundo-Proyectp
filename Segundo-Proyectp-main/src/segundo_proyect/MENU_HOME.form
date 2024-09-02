@@ -34,16 +34,18 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="configuracion" max="32767" attributes="0"/>
-                              <Component id="options" max="32767" attributes="0"/>
-                              <Component id="mandar" alignment="0" pref="174" max="32767" attributes="0"/>
-                              <Component id="interac" alignment="0" pref="174" max="32767" attributes="0"/>
-                              <Component id="hash" alignment="0" pref="174" max="32767" attributes="0"/>
-                              <Component id="timeline" alignment="1" pref="174" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="user_tag" min="-2" pref="160" max="-2" attributes="0"/>
                           <Component id="profile_pic" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="userTag" alignment="1" min="-2" pref="168" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="configuracion" max="32767" attributes="0"/>
+                                  <Component id="options" max="32767" attributes="0"/>
+                                  <Component id="mandar" alignment="0" pref="174" max="32767" attributes="0"/>
+                                  <Component id="interac" alignment="0" pref="174" max="32767" attributes="0"/>
+                                  <Component id="hash" alignment="0" pref="174" max="32767" attributes="0"/>
+                                  <Component id="timeline" alignment="1" pref="174" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -78,8 +80,8 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Component id="profile_pic" min="-2" pref="114" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="user_tag" min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="userTag" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="configuracion" min="-2" pref="51" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -178,20 +180,6 @@
           </Border>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="profile_picAncestorAdded"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="user_tag">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="18" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="@ USUARIO"/>
-      </Properties>
-      <Events>
-        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="user_tagAncestorAdded"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JToggleButton" name="mandar">
       <Properties>
@@ -252,6 +240,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel3"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="userTag">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

@@ -9,14 +9,15 @@ package segundo_proyect;
  * @author Laura Sabillon
  */
 public class users {
-    
+
     //LLAMMAR VARIABLES
-    private USUARIO usuarios [];    
-    private static USUARIO EnSesion = null;    
-    
-    public users (int limite){
+    private USUARIO usuarios[];
+
+
+    public users(int limite) {
         usuarios = new USUARIO[limite];
     }
+
     
     //BUSCAR Y AGREGAR EL USUARIO (SI YA NO ESTA EN EL SISTEMA)
     USUARIO buscar(String usuario) {
@@ -27,20 +28,19 @@ public class users {
         }
         return null;
     }
-    
-    public boolean agregarUsers(String nombre, String usuario, char genero, int edad, String password){
-        if (buscar(usuario) == null){
-            for (int indice = 0; indice < usuarios.length ; indice++){
-                if (usuarios[indice] == null){
 
-                    usuarios [indice] = new USUARIO (nombre, usuario, genero, edad, password);
+    public boolean agregarUsers(String nombre, String usuario, char genero, int edad, String password) {
+        if (buscar(usuario) == null) {
+            for (int indice = 0; indice < usuarios.length; indice++) {
+                if (usuarios[indice] == null) {
+                    usuarios[indice] = new USUARIO(nombre, usuario, genero, edad, password);
                     return true;
                 }
             }
         }
         return false;
     }
-        
+
     //VERIFICAR LOGIN INICIADO
     public boolean Login(String usuario, String password) {
         USUARIO user = buscar(usuario);
@@ -50,5 +50,9 @@ public class users {
         } else {
             return false;
         }
+    }
+
+    String getusername() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
