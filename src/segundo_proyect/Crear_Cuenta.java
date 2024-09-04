@@ -9,13 +9,14 @@ import javax.swing.JOptionPane;
  * @author Laura Sabillon
  */
 public class Crear_Cuenta extends javax.swing.JFrame {
-    private users usuarios;
+    private users userDatabase;
     /**
      * Creates new form crear
      */
-    public Crear_Cuenta(users usuario) {
-        this.usuarios = usuario;
-        initComponents();
+    public Crear_Cuenta(users userDatabase) {
+        this.userDatabase = userDatabase;
+        initComponents();        
+        getContentPane().setBackground(java.awt.Color.WHITE);         
     }
             
     /**
@@ -47,6 +48,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         showpass = new javax.swing.JCheckBox();
         nombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 153, 153));
@@ -145,6 +147,8 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setText("Nombre Completo: ");
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/twitter_logo_principal (1).jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,29 +185,35 @@ public class Crear_Cuenta extends javax.swing.JFrame {
                                     .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7))
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(hombre, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(58, 58, 58)
-                                        .addComponent(mujer, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel7))
+                                    .addGap(58, 58, 58)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(hombre, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(58, 58, 58)
+                                            .addComponent(mujer, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(64, 64, 64)
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(75, 75, 75)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -294,9 +304,9 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
                 
         //AGREGAR USUARIO / ERROR
-        if (usuarios.agregarUsers(name, username , genero, age, contraseña)) {
+        if (userDatabase.agregarUsers(name, username , genero, age, contraseña)) {
             JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");            
-            MENU_HOME menu = new MENU_HOME(usuarios);
+            MENU_HOME menu = new MENU_HOME(this.userDatabase);
             menu.setVisible(true);
             this.dispose();
         } else {
@@ -329,7 +339,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         // TODO add your handling code here:
-        LOG_in log = new LOG_in(usuarios);
+        LOG_in log = new LOG_in(this.userDatabase);
         log.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_exitActionPerformed
@@ -384,12 +394,12 @@ public class Crear_Cuenta extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        users usuario = new users(100);        
+        users userDatabase = new users(100);        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Crear_Cuenta(usuario).setVisible(true);
+                new Crear_Cuenta(userDatabase).setVisible(true);
             }
         });
     }
@@ -410,6 +420,7 @@ public class Crear_Cuenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JRadioButton mujer;
     private javax.swing.JTextField nombre;
     private javax.swing.JCheckBox showpass;

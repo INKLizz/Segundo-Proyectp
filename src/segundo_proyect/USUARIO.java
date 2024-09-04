@@ -6,11 +6,11 @@ package segundo_proyect;
 import java.util.Calendar;
 /**
  *
- * @author Laura Sabillon
+ * @author Cristina Sabillon
  */
 public class USUARIO {
     
-    //VARIABLES
+    // VARIABLES
     private String nombre;
     private String usuario;
     private String password;
@@ -18,8 +18,12 @@ public class USUARIO {
     private char genero;
     private boolean estado;
     private Calendar fecha;
+    private boolean enSession;
+    private Followers follower;
+    private Following follow;
+
     
-    //CONSTRUCTOR
+    // CONSTRUCTOR
     public USUARIO(String nombre, String usuario, char genero, int edad, String password) {
         this.nombre = nombre;
         this.usuario = usuario;
@@ -28,63 +32,61 @@ public class USUARIO {
         this.password = password;
         this.fecha = Calendar.getInstance();        
         this.estado = true;
+        this.enSession = false;
     }
     
-    //GETTERS
-    public String getNombre (){
-        return nombre;
+    // GETTERS & SETTERS
+    public String getNombre() { 
+        return nombre; 
+    }
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
     
-    public String getUsuario() {
-        return usuario;
+    public String getUsuario() { 
+        return usuario; 
+    }
+    public void setUsuario(String usuario) { 
+        this.usuario = usuario; 
     }
     
-    public String getPassword() {
-        return password;
+    public String getPassword() { 
+        return password; 
+    }
+    public void setPassword(String password) { 
+        this.password = password; 
     }
     
-    public int getEdad() {
-        return edad;
+    public int getEdad() { 
+        return edad; 
+    }
+    public void setEdad(int edad) { 
+        this.edad = edad; 
     }
     
-    public char getGenero() {
-        return genero;
+    public char getGenero() { 
+        return genero; 
+    }
+    public void setGenero(char genero) { 
+        this.genero = genero; 
     }
     
-    public Calendar getFecha() {
-        return fecha;
+    public Calendar getFecha() { 
+        return fecha; 
     }
     
-    public boolean isEstado() {
-        return estado;
+    public boolean isEstado() { 
+        return estado; 
     }
-
-    //SETTERS
-    public void setNombre (String nombre){
-        this.nombre = nombre;
+    public void setEstado(boolean estado) { 
+        this.estado = estado; 
     }
     
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public boolean getEnSession() { 
+        return enSession; 
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public void setGenero(char genero) {
-        this.genero = genero;
+    public void setEnSession(boolean enSession) { 
+        this.enSession = enSession; 
     }
     
-    public void setFecha(Calendar fecha) {
-        this.fecha = fecha;
-    }
-    
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
 }
