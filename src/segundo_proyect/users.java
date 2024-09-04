@@ -55,9 +55,9 @@ public class users {
     
     //VERIFY SESSION
     public String getUsernameInSession() {
-        for (USUARIO user : usuarios) {
-            if (user != null && user.getEnSession()) { 
-                return user.getUsuario(); 
+        for (USUARIO indice : usuarios) {
+            if (indice != null && indice.getEnSession()) { 
+                return indice.getUsuario(); 
             }
         }
         return null; 
@@ -65,10 +65,10 @@ public class users {
     
     //DATA RETRIEVE
     public USUARIO getUserInSession() {
-        for (USUARIO user : usuarios) {
-            if (user != null) {
-                if (user.getEnSession()) {
-                    return user;
+        for (USUARIO indice : usuarios) {
+            if (indice != null) {
+                if (indice.getEnSession()) {
+                    return indice;
                 }
             }
         }

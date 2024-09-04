@@ -389,21 +389,21 @@ public class MENU_HOME extends javax.swing.JFrame {
         // TODO add your handling code here:
         String tweetContent = texting.getText().trim(); 
         if (!tweetContent.isEmpty()) {
-            users loggedUser = userDatabase;
+            USUARIO loggedUser = userDatabase.getUserInSession();
 
             if (loggedUser != null) {
-                tweetManager.postTweet(tweetContent, loggedUser);
-                JOptionPane.showMessageDialog(null, "Se publico su tweet!");
-                
+                tweetManager.postTweet(tweetContent, userDatabase); 
+                JOptionPane.showMessageDialog(null, "Se publicó su tweet!");
+
                 twit_show.setText(tweetManager.getTimeline());
-                String mentions = tweetManager.getMentioningUser(loggedUser);
-                
+                String mentions = tweetManager.getMentioningUser(userDatabase);
+
                 mencion_show.setText(mentions);                
                 texting.setText("");
             }
-            
+
         } else {
-            JOptionPane.showMessageDialog(null, "No escribio nada en el tweet.");
+            JOptionPane.showMessageDialog(null, "No escribió nada en el tweet.");
         }
     }//GEN-LAST:event_tweetActionPerformed
 

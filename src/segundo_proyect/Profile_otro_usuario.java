@@ -16,13 +16,14 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
     private USUARIO[] usuarios;    
     private users userDatabase;
     private String selectedUsername;
-    private Tweets twits;    
+    private Tweet_Manager tweetManager;
     
     /**
      * Creates new form Profile_otro_usuario
      */
     public Profile_otro_usuario(users userDatabase, String selectedUsername) {
         initComponents();
+        this.tweetManager = Tweet_Manager.getInstance(100);             
         this.userDatabase = userDatabase;
         this.selectedUsername = selectedUsername;
         this.usuarios = userDatabase.getUsuarios();  
@@ -47,6 +48,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         fecha = new javax.swing.JLabel();
         RETURN = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        tweets_Ousuario = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
         jToggleButton14 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
@@ -139,6 +141,21 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(RETURN, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 260, -1));
+
+        tweets_Ousuario.setColumns(20);
+        tweets_Ousuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tweets_Ousuario.setRows(5);
+        tweets_Ousuario.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tweets_OusuarioAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane2.setViewportView(tweets_Ousuario);
+
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 720, 260));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
@@ -280,6 +297,21 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nombreAncestorAdded
 
+    private void tweets_OusuarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_OusuarioAncestorAdded
+        // TODO add your handling code here:
+        if (userDatabase != null && selectedUsername != null) {
+            USUARIO user = userDatabase.buscar(selectedUsername); 
+            
+         if (user != null) {
+             String timeline = tweetManager.TimelineUserOther(user);
+
+             tweets_Ousuario.setText(timeline);
+         } else {
+             tweets_Ousuario.setText("No hay usuario conectado.");
+            }        
+        }
+    }//GEN-LAST:event_tweets_OusuarioAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -332,6 +364,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton14;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTextArea tweets_Ousuario;
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }

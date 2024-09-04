@@ -62,10 +62,23 @@ public class Tweet_Manager {
         return mentions;
     }
     
-    public void printTimeline() {
-        System.out.println("Timeline Contenido:");
+    public String TimelineUserCurrent(users currentUser) {
+        String contenido = "";
         for (int index = 0; index < tweetCount; index++) {
-            System.out.println("Tweet " + (index + 1) + ": " + timeline[index].publicarTweet());
+            if (timeline[index].getAutor().equals(currentUser.getUsernameInSession())) {
+                contenido += timeline[index].publicarTweet() + "\n";
+            }
         }
+        return contenido;
+    }
+
+    public String TimelineUserOther(USUARIO user) {
+        String contenido = "";
+        for (int index = 0; index < tweetCount; index++) {
+            if (timeline[index].getAutor().equals(user.getUsuario())) {
+                contenido += timeline[index].publicarTweet() + "\n";
+            }
+        }
+        return contenido;
     }    
 }

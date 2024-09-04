@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class PROFILE extends javax.swing.JFrame {
     private users userDatabase;
     private Tweets twits;
+    private Tweet_Manager tweets_M;
     private USUARIO[] usuarios;    
     private DefaultListModel <String> lista_usuario; 
     
@@ -25,6 +26,7 @@ public class PROFILE extends javax.swing.JFrame {
     public PROFILE(users userDatabase) {
         this.userDatabase = userDatabase;
         initComponents();
+        this.tweets_M = Tweet_Manager.getInstance(100);     
         
         this.usuarios = userDatabase.getUsuarios();  
         lista_usuario = new DefaultListModel<>(); 
@@ -40,6 +42,8 @@ public class PROFILE extends javax.swing.JFrame {
             }
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +67,6 @@ public class PROFILE extends javax.swing.JFrame {
         nombre = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
-        CONTAINER = new javax.swing.JScrollPane();
         jLabel17 = new javax.swing.JLabel();
         usuario1 = new javax.swing.JLabel();
         buscar_personas = new javax.swing.JTextField();
@@ -74,6 +77,8 @@ public class PROFILE extends javax.swing.JFrame {
         CONTAINER1 = new javax.swing.JScrollPane();
         usuarios_showcase = new javax.swing.JList<>();
         go_back1 = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tweets_user = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -177,7 +182,6 @@ public class PROFILE extends javax.swing.JFrame {
             }
         });
         getContentPane().add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 370, 150, -1));
-        getContentPane().add(CONTAINER, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 470, 250));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/segundo_proyect/background_pf.jpg"))); // NOI18N
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 220));
@@ -255,6 +259,22 @@ public class PROFILE extends javax.swing.JFrame {
             }
         });
         getContentPane().add(go_back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 260, -1));
+
+        tweets_user.setColumns(20);
+        tweets_user.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tweets_user.setRows(5);
+        tweets_user.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tweets_userAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jScrollPane2.setViewportView(tweets_user);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 460, 240));
 
         pack();
         setLocationRelativeTo(null);
@@ -428,6 +448,19 @@ public class PROFILE extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_go_back1ActionPerformed
 
+    private void tweets_userAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_userAncestorAdded
+        // TODO add your handling code here:}
+        USUARIO loggedUser = userDatabase.getUserInSession();
+
+         if (loggedUser != null) {
+             String timeline = tweets_M.TimelineUserCurrent(userDatabase);
+
+             tweets_user.setText(timeline);
+         } else {
+             tweets_user.setText("No hay usuario conectado.");
+    }
+    }//GEN-LAST:event_tweets_userAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -465,7 +498,6 @@ public class PROFILE extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane CONTAINER;
     private javax.swing.JScrollPane CONTAINER1;
     private javax.swing.JToggleButton DESACTIVAR;
     private javax.swing.JLabel age;
@@ -483,8 +515,10 @@ public class PROFILE extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nombre;
     private javax.swing.JLabel perfil;
+    private javax.swing.JTextArea tweets_user;
     private javax.swing.JLabel user_showcase;
     private javax.swing.JLabel usuario1;
     private javax.swing.JList<String> usuarios_showcase;

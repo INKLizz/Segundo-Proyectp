@@ -91,4 +91,5 @@ public class USUARIO {
     public void setEnSession(boolean enSession) { 
         this.enSession = enSession; 
     }
+    
 }
