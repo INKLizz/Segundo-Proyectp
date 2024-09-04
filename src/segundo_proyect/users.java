@@ -6,7 +6,7 @@ package segundo_proyect;
 
 /**
  *
- * @author Laura Sabillon
+ * @author Cristina Sabillon
  */
 public class users {
     
@@ -85,12 +85,8 @@ public class users {
         return false;
     }    
     
-    //USUARIOS SHOWCASE
-    public void printUSUARIOS() {
-        for (USUARIO user : usuarios) {
-            if (user != null) {
-                System.out.println(user.getUsuario());
-            }
-        }
-    }    
+    //USUARIOS LIST
+    public USUARIO[] getUsuarios() {
+        return usuarios;
+    }
 }

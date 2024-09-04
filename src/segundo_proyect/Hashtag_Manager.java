@@ -6,7 +6,7 @@ package segundo_proyect;
 
 /**
  *
- * @author Laura Sabillon
+ * @author Cristina Sabillon
  */
 public class Hashtag_Manager {
     

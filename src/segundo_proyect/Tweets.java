@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 /**
  *
- * @author Laura Sabillon
+ * @author Cristina Sabillon
  */
 public class Tweets {
     
@@ -40,8 +40,8 @@ public class Tweets {
         return tweetDetails; 
     }
     
-    public boolean containsMention(users currentUser) {
-        String usernameToCheck = "@" + currentUser.getUsernameInSession();
+    public boolean containsMention(users User) {
+        String usernameToCheck = "@" + User.getUsernameInSession();
         return contenido.contains(usernameToCheck);
     }
     
@@ -49,4 +49,5 @@ public class Tweets {
         String hashtagCheck = "#" + hashtag;
         return contenido.contains(hashtagCheck);
     }    
+    
 }

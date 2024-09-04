@@ -62,7 +62,7 @@ public class Tweet_Manager {
         return mentions;
     }
     
-    public void print() {
+    public void printTimeline() {
         System.out.println("Timeline Contenido:");
         for (int index = 0; index < tweetCount; index++) {
             System.out.println("Tweet " + (index + 1) + ": " + timeline[index].publicarTweet());

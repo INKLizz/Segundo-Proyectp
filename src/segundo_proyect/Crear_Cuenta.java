@@ -15,9 +15,8 @@ public class Crear_Cuenta extends javax.swing.JFrame {
      */
     public Crear_Cuenta(users userDatabase) {
         this.userDatabase = userDatabase;
-        initComponents();
-        
-    getContentPane().setBackground(java.awt.Color.WHITE);         
+        initComponents();        
+        getContentPane().setBackground(java.awt.Color.WHITE);         
     }
             
     /**

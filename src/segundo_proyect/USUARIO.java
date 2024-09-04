@@ -6,7 +6,7 @@ package segundo_proyect;
 import java.util.Calendar;
 /**
  *
- * @author Laura Sabillon
+ * @author Cristina Sabillon
  */
 public class USUARIO {
     
@@ -19,6 +19,8 @@ public class USUARIO {
     private boolean estado;
     private Calendar fecha;
     private boolean enSession;
+    private Followers follower;
+    private Following follow;
 
     
     // CONSTRUCTOR
