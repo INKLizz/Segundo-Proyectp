@@ -345,11 +345,31 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar_sesionActionPerformed
         // TODO add your handling code here:
-        boolean logout = userDatabase.outSession();
         
-        LOG_in log = new LOG_in(this.userDatabase);
-        log.setVisible(true);
-        this.dispose();
+        USUARIO usuario = userDatabase.getUserInSession();
+        if (usuario != null) {
+            int response = JOptionPane.showConfirmDialog(
+                    null, 
+                    "Desea salir Cerrar sessión?",
+                    "Confirmacion de cerrar session",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (response == JOptionPane.YES_OPTION) {
+                usuario.setEnSession(false);
+                JOptionPane.showMessageDialog(null, "Ha cerrado sessión.");
+                LOG_in log = new LOG_in(this.userDatabase);
+                log.setVisible(true);
+                this.dispose();                
+                
+            } else if (response == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Cancelo cerrar sessión.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay ningún usuario en sesión.");
+        }        
+       
     }//GEN-LAST:event_cerrar_sesionActionPerformed
 
     private void profile_picAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_profile_picAncestorAdded

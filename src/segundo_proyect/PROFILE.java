@@ -396,7 +396,7 @@ public class PROFILE extends javax.swing.JFrame {
             );
 
             if (response == JOptionPane.YES_OPTION) {
-                usuario.setEnSession(false);
+                usuario.setEstado(false);
                 JOptionPane.showMessageDialog(null, "Su cuenta ha sido desactivada.");
             } else if (response == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "La desactivación de la cuenta ha sido cancelada.");
@@ -450,6 +450,8 @@ public class PROFILE extends javax.swing.JFrame {
 
     private void tweets_userAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_userAncestorAdded
         // TODO add your handling code here:}
+        tweets_user.setEditable(false);
+        
         USUARIO loggedUser = userDatabase.getUserInSession();
 
          if (loggedUser != null) {

@@ -74,9 +74,6 @@ public class USUARIO {
     public Calendar getFecha() { 
         return fecha; 
     }
-    public void setFecha(Calendar fecha) { 
-        this.fecha = fecha; 
-    }
     
     public boolean isEstado() { 
         return estado; 

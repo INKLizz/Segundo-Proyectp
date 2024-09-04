@@ -13,12 +13,12 @@ public class Tweets {
     
     // VARIABLES
     private String contenido;
-    private String autor; 
+    private String creador; 
     private Calendar publicado;
 
     public Tweets(String contenido, users user) {
         this.contenido = contenido;
-        this.autor = user.getUsernameInSession(); 
+        this.creador = user.getUsernameInSession(); 
         this.publicado = Calendar.getInstance();        
     }
 
@@ -26,28 +26,30 @@ public class Tweets {
         return contenido;
     }
 
-    public String getAutor() {
-        return autor; 
+    public String getCreador() {
+        return creador; 
     }
 
     public String publicarTweet() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String formattedTime = formatter.format(publicado.getTime());
         
-        String tweetDetails = "Usuario: " + autor + "\n" + 
+        String tweetDetails = "Usuario: " + creador + "\n" + 
                               contenido + "\n" +
-                              "Fecha de publicación: " + formattedTime + "\n";
+                              "Fecha de publicación: " + formattedTime 
+                            + "\n---------------------------------------------------------------------------" +
+                              "\n";
         return tweetDetails; 
     }
     
-    public boolean containsMention(users User) {
+    public boolean interracion(users User) {
         String usernameToCheck = "@" + User.getUsernameInSession();
         return contenido.contains(usernameToCheck);
     }
     
     public boolean containsHashtag(String hashtag) {
-        String hashtagCheck = "#" + hashtag;
-        return contenido.contains(hashtagCheck);
+        String hashtagCheck = "#" + hashtag.toLowerCase();
+        return contenido.toLowerCase().contains(hashtagCheck);
     }    
     
 }

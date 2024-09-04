@@ -299,6 +299,8 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
 
     private void tweets_OusuarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_OusuarioAncestorAdded
         // TODO add your handling code here:
+        tweets_Ousuario.setEditable(false);
+        
         if (userDatabase != null && selectedUsername != null) {
             USUARIO user = userDatabase.buscar(selectedUsername); 
             

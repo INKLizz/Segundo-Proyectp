@@ -55,7 +55,7 @@ public class Tweet_Manager {
     public String getMentioningUser(users currentUser) {
         String mentions = "";
         for (int index = 0; index < tweetCount; index++) {
-            if (timeline[index].containsMention(currentUser)) {
+            if (timeline[index].interracion(currentUser)) {
                 mentions += timeline[index].publicarTweet() + "\n";
             }
         }
@@ -65,7 +65,7 @@ public class Tweet_Manager {
     public String TimelineUserCurrent(users currentUser) {
         String contenido = "";
         for (int index = 0; index < tweetCount; index++) {
-            if (timeline[index].getAutor().equals(currentUser.getUsernameInSession())) {
+            if (timeline[index].getCreador().equals(currentUser.getUsernameInSession())) {
                 contenido += timeline[index].publicarTweet() + "\n";
             }
         }
@@ -75,7 +75,7 @@ public class Tweet_Manager {
     public String TimelineUserOther(USUARIO user) {
         String contenido = "";
         for (int index = 0; index < tweetCount; index++) {
-            if (timeline[index].getAutor().equals(user.getUsuario())) {
+            if (timeline[index].getCreador().equals(user.getUsuario())) {
                 contenido += timeline[index].publicarTweet() + "\n";
             }
         }

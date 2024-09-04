@@ -18,6 +18,7 @@ public class Hashtag_Manager {
 
     public String getTweetsByHashtag(String hashtag) {
         String result = "";
+        String lowerCaseHashtag = hashtag.toLowerCase(); 
         for (int index = 0; index < tweetManager.getTweetCount(); index++) {
             Tweets tweet = tweetManager.getTweet(index);
             if (tweet != null && tweet.containsHashtag(hashtag)) {
