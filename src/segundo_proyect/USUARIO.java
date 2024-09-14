@@ -4,6 +4,7 @@
  */
 package segundo_proyect;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -26,6 +27,8 @@ public class USUARIO {
     public USUARIO[] followers;
     private int followingCount;
     private int followersCount;
+    private String[] tweets;
+    private int posicionTwit;
 
     // CONSTRUCTOR
     public USUARIO(String nombre, String usuario, char genero, int edad, String password) {
@@ -41,6 +44,8 @@ public class USUARIO {
         this.followers = new USUARIO[100];
         this.followingCount = 0;
         this.followersCount = 0;
+        this.tweets = new String[100];
+        posicionTwit = 0;
     }
 
     // GETTERS & SETTERS
@@ -48,47 +53,27 @@ public class USUARIO {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getUsuario() {
         return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getEdad() {
         return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
     }
 
     public char getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
-        this.genero = genero;
-    }
-
     public Calendar getFecha() {
         return fecha;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
@@ -106,6 +91,14 @@ public class USUARIO {
 
     public int getFollowingCount() {
         return followingCount;
+    }
+
+    public USUARIO[] getFollowing() {
+        return following;
+    }
+
+    public USUARIO[] getFollowers() {
+        return followers;
     }
 
     public void setFollowingCount(int followingCount) {
@@ -137,16 +130,59 @@ public class USUARIO {
                 following[contador] = following[contador + 1];
             }
             following[--followingCount] = null;
-            user.setFollowersCount(user.getFollowersCount() - 1);
+            user.removeFollower(this);
+
             return false;
         } else {
-            if (followingCount < following.length) {
-                following[followingCount++] = user;
-                user.setFollowersCount(user.getFollowersCount() + 1);
-                return true;
-            } else {
-                return false;
-            }
+            following[followingCount++] = user;
+            user.addFollower(this);
+
+            return true;
         }
     }
+
+    public void addFollower(USUARIO user) {
+        followers[followersCount++] = user;
+    }
+
+    public void removeFollower(USUARIO user) {
+        int index = -1;
+        for (int contador = 0; contador < followersCount; contador++) {
+            if (followers[contador].getUsuario().equals(user.getUsuario())) {
+                index = contador;
+                break;
+            }
+        }
+        if (index != -1) {
+            for (int contador = index; contador < followersCount - 1; contador++) {
+                followers[contador] = followers[contador + 1];
+            }
+            followers[--followersCount] = null;
+        }
+    }
+
+    public void agregartwit(String twit) {
+        this.tweets[posicionTwit] = twit;
+        posicionTwit++;
+    }
+
+    public String mostrarTwit() {
+        if (posicionTwit == 0) {
+            return "";
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedTime = formatter.format(fecha.getTime());
+        String twits = "";
+
+        for (int contador = 0; contador < posicionTwit; contador++) {
+            twits += tweets[contador] + " - Usuario: " + this.getUsuario() + "\n" + "fecha de publicacion: " + formattedTime + "\n" + "---------------------------------------------------------------------------" + "\n";
+        }
+
+        return twits;
+    }
+
+    public String[] getTweets(){
+        return tweets;
+    }
+    
 }

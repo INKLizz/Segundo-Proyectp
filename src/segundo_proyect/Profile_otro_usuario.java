@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -19,18 +21,27 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
     private String selectedUsername;
     private Tweet_Manager tweetManager;
     private users userDatabase;
+
     /**
      */
     public Profile_otro_usuario(users userDatabase, String selectedUsername) {
         initComponents();
-        this.tweetManager = Tweet_Manager.getInstance(100);
         this.userDatabase = userDatabase;
         this.selectedUsername = selectedUsername;
         this.usuarios = userDatabase.getUsuarios();
-        
+
         USUARIO user = userDatabase.buscar(selectedUsername);
-        this.followers.setText("Followers: "+String.valueOf(user.getFollowersCount()));
-        this.following.setText("Following: "+String.valueOf(user.getFollowingCount()));
+        this.followers.setText("Followers: " + String.valueOf(user.getFollowersCount()));
+        this.following.setText("Following: " + String.valueOf(user.getFollowingCount()));
+        actualizarEstadoBoton();
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                actualizarTwits();
+            }
+        });
+        
     }
 
     /**
@@ -135,7 +146,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 270, 26));
+        getContentPane().add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 260, 30));
 
         RETURN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         RETURN.setText("GO BACK");
@@ -149,15 +160,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         tweets_Ousuario.setColumns(20);
         tweets_Ousuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tweets_Ousuario.setRows(5);
-        tweets_Ousuario.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tweets_OusuarioAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         jScrollPane2.setViewportView(tweets_Ousuario);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 720, 260));
@@ -194,7 +196,12 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+     private void actualizarTwits() {
+        USUARIO twitsOtroUsuario = userDatabase.buscar(selectedUsername);        
+        String totalTweets = twitsOtroUsuario.mostrarTwit();
+        this.tweets_Ousuario.setText(totalTweets);
+    }
 
     private void RETURNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RETURNActionPerformed
         // TODO add your handling code here:
@@ -252,7 +259,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
                 if (date != null) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     String fechaString = dateFormat.format(date.getTime());
-                    fecha.setText("Fecha: " + fechaString);
+                    fecha.setText("Fecha de union: " + fechaString);
                 }
             } else {
                 fecha.setText("Fecha: NoN");
@@ -303,45 +310,53 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_nombreAncestorAdded
+    private void actualizarEstadoBoton() {
+        USUARIO loggedInUser = this.userDatabase.getUserInSession();
+        USUARIO user = this.userDatabase.buscar(selectedUsername);
 
-    private void tweets_OusuarioAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_OusuarioAncestorAdded
-        // TODO add your handling code here:
-        tweets_Ousuario.setEditable(false);
+        if (user == null) {
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
+            return;
+        }
 
-        if (userDatabase != null && selectedUsername != null) {
-            USUARIO user = userDatabase.buscar(selectedUsername);
+        
+        boolean isFollowing = false;
+        USUARIO[] followingList = loggedInUser.getFollowing();
+        int numeroSeguidos = loggedInUser.getFollowingCount();
 
-            if (user != null) {
-                String timeline = tweetManager.TimelineUserOther(user);
-
-                tweets_Ousuario.setText(timeline);
-            } else {
-                tweets_Ousuario.setText("No hay usuario conectado.");
+        for (int contador = 0; contador < numeroSeguidos; contador++) {
+            if (followingList[contador] != null && followingList[contador].getUsuario().equals(selectedUsername)) {
+                isFollowing = true;
+                break;
             }
         }
-    }//GEN-LAST:event_tweets_OusuarioAncestorAdded
-
+        if (isFollowing) {
+            followyunfollow.setText("Unfollow");
+        } else {
+            followyunfollow.setText("Follow");
+        }
+    }
     private void followyunfollowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_followyunfollowMouseClicked
-        // TODO
-        System.out.println("user; " + selectedUsername);
-        System.out.println("usuario logged; " + this.userDatabase.getUserInSession().getUsuario());
+
         USUARIO user = userDatabase.buscar(selectedUsername);
-        if(this.userDatabase.getUserInSession().accionSeguir(userDatabase.buscar(selectedUsername))) {
+        if (this.userDatabase.getUserInSession().accionSeguir(userDatabase.buscar(selectedUsername))) {
             JOptionPane.showMessageDialog(null, "Se ha seguido al usuario.");
-            this.followers.setText("Followers: "+String.valueOf(user.getFollowersCount()));
+            this.followers.setText("Followers: " + String.valueOf(user.getFollowersCount()));
+            followyunfollow.setText("Unfollow");
             this.userDatabase.getUserInSession().getFollowingCount();
-            return;             
+            return;
         } else {
             JOptionPane.showMessageDialog(null, "Se ha dejado de seguir al usuario");
-            this.followers.setText("Followers: "+String.valueOf(user.getFollowersCount()));
-            return;             
+            this.followers.setText("Followers: " + String.valueOf(user.getFollowersCount()));
+            followyunfollow.setText("follow");
+            return;
         }
-        
+
     }//GEN-LAST:event_followyunfollowMouseClicked
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

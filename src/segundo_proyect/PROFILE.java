@@ -4,6 +4,9 @@
  */
 package segundo_proyect;
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.DefaultListModel;
@@ -17,7 +20,6 @@ import javax.swing.JOptionPane;
 public class PROFILE extends javax.swing.JFrame {
 
     private users userDatabase;
-    private Tweets twits;
     private Tweet_Manager tweets_M;
     private USUARIO[] usuarios;
     private DefaultListModel<String> lista_usuario;
@@ -28,7 +30,6 @@ public class PROFILE extends javax.swing.JFrame {
     public PROFILE(users userDatabase) {
         this.userDatabase = userDatabase;
         initComponents();
-        this.tweets_M = Tweet_Manager.getInstance(100);
 
         this.usuarios = userDatabase.getUsuarios();
         lista_usuario = new DefaultListModel<>();
@@ -37,8 +38,22 @@ public class PROFILE extends javax.swing.JFrame {
 
         this.followersProfile1.setText(String.valueOf(this.userDatabase.getUserInSession().getFollowersCount()));
         this.followingProfile.setText(String.valueOf(this.userDatabase.getUserInSession().getFollowingCount()));
+        lista_usuario.clear();
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+                actualizarTwits();
+            }
+        });
     }
 
+    private void actualizarTwits() {
+        USUARIO loggedUser = userDatabase.getUserInSession();        
+        String totalTweets = loggedUser.mostrarTwit();
+        this.tweets_user.setText(totalTweets);
+    }
+    
     private void añadir_A_Jlist() {
         lista_usuario.clear();
         USUARIO loggedInUser = this.userDatabase.getUserInSession();
@@ -58,7 +73,7 @@ public class PROFILE extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        MostrarFollowers = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         perfil = new javax.swing.JLabel();
         user_showcase = new javax.swing.JLabel();
@@ -66,7 +81,7 @@ public class PROFILE extends javax.swing.JFrame {
         edad = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         age = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        MostrarFollowing = new javax.swing.JLabel();
         nombre = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
@@ -89,9 +104,20 @@ public class PROFILE extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 51, 51));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Followers: ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 110, 26));
+        MostrarFollowers.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MostrarFollowers.setText("Followers: ");
+        MostrarFollowers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MostrarFollowersMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MostrarFollowersMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MostrarFollowersMouseExited(evt);
+            }
+        });
+        getContentPane().add(MostrarFollowers, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 110, 26));
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 750, 880, 30));
 
         perfil.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -105,7 +131,7 @@ public class PROFILE extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 100, 100));
+        getContentPane().add(perfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 100, 100));
 
         user_showcase.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         user_showcase.setText("@");
@@ -154,9 +180,20 @@ public class PROFILE extends javax.swing.JFrame {
         });
         getContentPane().add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 37, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Following: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, 110, 30));
+        MostrarFollowing.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MostrarFollowing.setText("Following: ");
+        MostrarFollowing.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MostrarFollowingMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MostrarFollowingMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MostrarFollowingMouseExited(evt);
+            }
+        });
+        getContentPane().add(MostrarFollowing, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, 110, 30));
 
         nombre.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         nombre.setText("Nombre: ");
@@ -169,7 +206,7 @@ public class PROFILE extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 360, -1));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 360, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Fecha de union: ");
@@ -195,14 +232,9 @@ public class PROFILE extends javax.swing.JFrame {
         usuario1.setText("Usuario:");
         getContentPane().add(usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 80, 40));
 
-        buscar_personas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar_personasActionPerformed(evt);
-            }
-        });
         buscar_personas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                buscar_personasKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscar_personasKeyReleased(evt);
             }
         });
         getContentPane().add(buscar_personas, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 280, 30));
@@ -268,15 +300,6 @@ public class PROFILE extends javax.swing.JFrame {
         tweets_user.setColumns(20);
         tweets_user.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tweets_user.setRows(5);
-        tweets_user.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                tweets_userAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         jScrollPane2.setViewportView(tweets_user);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 460, 240));
@@ -378,24 +401,6 @@ public class PROFILE extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nombreAncestorAdded
 
-    private void buscar_personasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_personasActionPerformed
-        // TODO add your handling code here:                
-        String buscar = buscar_personas.getText().trim().toLowerCase();
-        lista_usuario.clear();
-        if (usuarios != null) {
-            for (USUARIO user : usuarios) {
-                if (user != null && user.getUsuario() != null && user.getUsuario().toLowerCase().contains(buscar)) {
-                    lista_usuario.addElement(user.getUsuario());
-                }
-            }
-        }
-        if (lista_usuario.getSize() > 0) {
-            usuarios_showcase.setVisible(true);
-        } else {
-            usuarios_showcase.setVisible(false);
-        }
-    }//GEN-LAST:event_buscar_personasActionPerformed
-
     private void DESACTIVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DESACTIVARActionPerformed
         // TODO add your handling code here:
         USUARIO usuario = userDatabase.getUserInSession();
@@ -410,7 +415,12 @@ public class PROFILE extends javax.swing.JFrame {
 
             if (response == JOptionPane.YES_OPTION) {
                 usuario.setEstado(false);
+                usuario.setEnSession(false);
+                
                 JOptionPane.showMessageDialog(null, "Su cuenta ha sido desactivada.");
+                LOG_in log=new LOG_in(this.userDatabase);
+                log.setVisible(true);
+                this.dispose();
             } else if (response == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "La desactivación de la cuenta ha sido cancelada.");
             }
@@ -436,20 +446,6 @@ public class PROFILE extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_usuarios_showcaseValueChanged
 
-    private void buscar_personasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_personasKeyPressed
-        // TODO add your handling code here:
-        String buscar = buscar_personas.getText().trim().toLowerCase();
-        lista_usuario.clear();
-        if (usuarios != null) {
-            for (USUARIO user : usuarios) {
-                if (user != null && user.getUsuario() != null && user.getUsuario().toLowerCase().contains(buscar)) {
-                    lista_usuario.addElement(user.getUsuario());
-                }
-            }
-        }
-        usuarios_showcase.setVisible(lista_usuario.getSize() > 0);
-    }//GEN-LAST:event_buscar_personasKeyPressed
-
     private void jScrollPane1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jScrollPane1AncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1AncestorAdded
@@ -461,20 +457,84 @@ public class PROFILE extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_go_back1ActionPerformed
 
-    private void tweets_userAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tweets_userAncestorAdded
-        // TODO add your handling code here:}
-        tweets_user.setEditable(false);
+    private void MostrarFollowingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowingMouseClicked
 
-        USUARIO loggedUser = userDatabase.getUserInSession();
+        USUARIO user = this.userDatabase.getUserInSession();
 
-        if (loggedUser != null) {
-            String timeline = tweets_M.TimelineUserCurrent(userDatabase);
+        USUARIO[] followingList = user.getFollowing();
+        int numeroSeguidos = user.getFollowingCount();
 
-            tweets_user.setText(timeline);
+        String FOLLOWING = "Usuarios que sigues:\n";
+        if (numeroSeguidos > 0) {
+            for (int contador = 0; contador < numeroSeguidos; contador++) {
+                FOLLOWING += followingList[contador].getUsuario() + "\n";
+            }
         } else {
-            tweets_user.setText("No hay usuario conectado.");
+            FOLLOWING += "No sigues a nadie.";
         }
-    }//GEN-LAST:event_tweets_userAncestorAdded
+
+        JOptionPane.showMessageDialog(null, FOLLOWING);
+
+    }//GEN-LAST:event_MostrarFollowingMouseClicked
+
+    private void MostrarFollowersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowersMouseClicked
+        USUARIO user = this.userDatabase.getUserInSession();
+
+        USUARIO[] followersList = user.getFollowers();
+        int numeroSeguidores = user.getFollowersCount();
+
+        String FOLLOWERS = "Usuarios que te siguen:\n";
+        if (numeroSeguidores > 0) {
+            for (int contador = 0; contador < numeroSeguidores; contador++) {
+                FOLLOWERS += followersList[contador].getUsuario() + "\n";
+            }
+        } else {
+            FOLLOWERS += "No te sigue nadie.";
+        }
+
+        JOptionPane.showMessageDialog(null, FOLLOWERS);
+
+    }//GEN-LAST:event_MostrarFollowersMouseClicked
+
+    private void buscar_personasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscar_personasKeyReleased
+        String buscar = buscar_personas.getText().trim().toLowerCase();
+
+        USUARIO loggedInUser = this.userDatabase.getUserInSession();
+
+        lista_usuario.clear();
+
+        if (buscar.isEmpty()) {
+            lista_usuario.clear();
+        } else if (usuarios != null) {
+            for (USUARIO user : usuarios) {
+                if (user != null && user.getUsuario() != null) {
+                    if (user.getUsuario().toLowerCase().contains(buscar) && !user.equals(loggedInUser)) {
+                        lista_usuario.addElement(user.getUsuario());
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_buscar_personasKeyReleased
+
+    private void MostrarFollowersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowersMouseEntered
+
+        MostrarFollowers.setForeground(Color.blue);
+    }//GEN-LAST:event_MostrarFollowersMouseEntered
+
+    private void MostrarFollowersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowersMouseExited
+
+        MostrarFollowers.setForeground(Color.black);
+    }//GEN-LAST:event_MostrarFollowersMouseExited
+
+    private void MostrarFollowingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowingMouseEntered
+
+        MostrarFollowing.setForeground(Color.blue);
+    }//GEN-LAST:event_MostrarFollowingMouseEntered
+
+    private void MostrarFollowingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowingMouseExited
+
+        MostrarFollowing.setForeground(Color.black);
+    }//GEN-LAST:event_MostrarFollowingMouseExited
 
     /**
      * @param args the command line arguments
@@ -514,6 +574,8 @@ public class PROFILE extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane CONTAINER1;
     private javax.swing.JToggleButton DESACTIVAR;
+    private javax.swing.JLabel MostrarFollowers;
+    private javax.swing.JLabel MostrarFollowing;
     private javax.swing.JLabel age;
     private javax.swing.JTextField buscar_personas;
     private javax.swing.JLabel date;
@@ -527,8 +589,6 @@ public class PROFILE extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

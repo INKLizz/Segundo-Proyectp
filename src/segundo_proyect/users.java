@@ -12,7 +12,6 @@ public class users {
 
     //LLAMMAR VARIABLES
     private USUARIO[] usuarios;
-    
 
     //CONSTRUCTOR
     public users(int limite) {
@@ -48,6 +47,7 @@ public class users {
         if (user != null) {
             if (user.getPassword().equals(password)) {
                 user.setEnSession(true);
+                user.setEstado(true);
                 return true;
             }
         }
@@ -91,5 +91,53 @@ public class users {
         return usuarios;
     }
 
-    
+    public String getTweetsByHashtag(String hashtag) {
+        String HastagTweets = "";
+        String hashtagSearch = "#" + hashtag.trim();
+
+        for (USUARIO user : usuarios) {
+            if (user != null) {
+                String[] userTweets = user.getTweets();
+                for (int contador = 0; contador < userTweets.length; contador++) {
+                    String tweet = userTweets[contador];
+                    if (tweet != null && tweet.contains(hashtagSearch)) {
+                        HastagTweets += tweet + "-- Usuario: " + user.getUsuario() + "\n";
+                    }
+                }
+            }
+        }
+
+        if (HastagTweets.isEmpty()) {
+            return "No se encuentra ningún tweet con #" + hashtag;
+        }
+        return HastagTweets;
+    }
+
+    public String getTweetsByMention(String mentionedUser) {
+    String MentionedTweets = "";
+    String mentionSearch = "@" + mentionedUser.trim();
+
+    for (USUARIO user : usuarios) {
+        if (user != null) {
+            String[] userTweets = user.getTweets();
+
+            for (int contador = 0; contador < userTweets.length; contador++) {
+                String tweet = userTweets[contador];
+                if (tweet != null) {
+                    String[] words = tweet.split("\\s+");
+                    for (String word : words) {
+                        if (word.equals(mentionSearch)) {
+                            MentionedTweets += tweet + "\n -- Usuario: " + user.getUsuario() + "\n";
+                            break; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (MentionedTweets.isEmpty()) {
+        return "";
+    }
+    return MentionedTweets;
+    }
 }
