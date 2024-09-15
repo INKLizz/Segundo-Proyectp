@@ -95,13 +95,10 @@ public class Tweet_Manager {
                     for (int contador = 0; contador < userTweets.length; contador++) {
                         String tweet = userTweets[contador];
                         if (tweet != null && tweet.toLowerCase().contains(hashtagSearch)) {
-                        Calendar calendarDate = user.getFecha();
-                        Date tweetDate = calendarDate.getTime();
-                        String formattedDate = formatter.format(tweetDate);
 
                         HastagTweets += "Usuario: " + user.getUsuario() + "\n" 
                                         + tweet + "\n" 
-                                        + "Fecha de Publicación: " + formattedDate + "\n" 
+                                        + "Fecha de publicacion: " + formatter.format(Calendar.getInstance().getTime()) + "\n"
                                         + "-----------------------------------------------------------------------------\n";
                         }
                     }
@@ -130,13 +127,10 @@ public class Tweet_Manager {
                             String[] words = tweet.split("\\s+");
                             for (String word : words) {
                                 if (word.equals(mentionSearch)) {
-                                    Calendar calendarDate = user.getFecha();
-                                    Date tweetDate = calendarDate.getTime();
-                                    String formattedDate = formatter.format(tweetDate);
 
                                     MentionedTweets += "Usuario: " + user.getUsuario() + "\n" 
                                                     + tweet + "\n" 
-                                                    + "Fecha de Publicación: " + formattedDate + "\n" 
+                                                    + "Fecha de publicacion: " + formatter.format(Calendar.getInstance().getTime()) + "\n"
                                                     + "-----------------------------------------------------------------------------\n";
                                     break;
                                 }
