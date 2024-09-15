@@ -74,7 +74,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="showpass" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="password" min="-2" pref="283" max="-2" attributes="0"/>
-                          <Component id="cambio_a_crear" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cambio_a_crear" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
