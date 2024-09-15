@@ -30,7 +30,7 @@ public class MENU_HOME extends javax.swing.JFrame {
         this.tweetManager = Tweet_Manager.getInstance(usuarios);
         initComponents();
         getContentPane().setBackground(java.awt.Color.WHITE);  
-        updateCharCount();
+        updateCount();
         
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -42,7 +42,7 @@ public class MENU_HOME extends javax.swing.JFrame {
         texting.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-                updateCharCount();
+                updateCount();
             }
         });
     }
@@ -424,7 +424,7 @@ public class MENU_HOME extends javax.swing.JFrame {
             Tweet_Manager tweetManager = Tweet_Manager.getInstance(userDatabase.getUsuarios());
             tweetManager.addTweet(loggedUser, texting.getText());
             texting.setText(""); 
-            updateCharCount();
+            updateCount();
             JOptionPane.showMessageDialog(this, "Su tweet se ha publicado exitosamente!!");
             actualizarTwits();
 
@@ -491,7 +491,7 @@ public class MENU_HOME extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jLabel5AncestorAdded
-    private void updateCharCount() {
+    private void updateCount() {
         String text = texting.getText();
         int length = text.length();
         jLabel5.setText(length + " / " + "140"  + " caracteres ");
