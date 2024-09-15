@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
 public class PROFILE extends javax.swing.JFrame {
 
     private users userDatabase;
-    private Tweet_Manager tweets_M;
     private USUARIO[] usuarios;
     private DefaultListModel<String> lista_usuario;
+    private DefaultListModel<String> listaRealUsuarios;
 
     /**
      * Creates new form PROFILE
@@ -33,35 +33,58 @@ public class PROFILE extends javax.swing.JFrame {
 
         this.usuarios = userDatabase.getUsuarios();
         lista_usuario = new DefaultListModel<>();
+        listaRealUsuarios = new DefaultListModel<>();
         usuarios_showcase.setModel(lista_usuario);
         añadir_A_Jlist();
 
-        this.followersProfile1.setText(String.valueOf(this.userDatabase.getUserInSession().getFollowersCount()));
-        this.followingProfile.setText(String.valueOf(this.userDatabase.getUserInSession().getFollowingCount()));
         lista_usuario.clear();
-        
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
+                actualizarContadores();
                 actualizarTwits();
             }
         });
     }
 
+    private void actualizarContadores() {
+        USUARIO userInSession = userDatabase.getUserInSession();
+        if (userInSession != null) {
+            USUARIO[] followingList = userInSession.getFollowing();
+            int activeFollowings = 0;
+            for (USUARIO followedUser : followingList) {
+                if (followedUser != null && followedUser.getEstado()) {
+                    activeFollowings++;
+                }
+            }
+            USUARIO[] followerlist = userInSession.getFollowers();
+            int activeFollowers = 0;
+            for (USUARIO followingUser : followerlist) {
+                if (followingUser != null && followingUser.getEstado()) {
+                    activeFollowers++;
+                }
+            }
+            followersProfile1.setText(String.valueOf(activeFollowers));
+            followingProfile.setText(String.valueOf(activeFollowings));
+        }
+    }
+
     private void actualizarTwits() {
-        USUARIO loggedUser = userDatabase.getUserInSession();        
+        USUARIO loggedUser = userDatabase.getUserInSession();
         String totalTweets = loggedUser.mostrarTwit();
         this.tweets_user.setText(totalTweets);
     }
-    
+
     private void añadir_A_Jlist() {
         lista_usuario.clear();
         USUARIO loggedInUser = this.userDatabase.getUserInSession();
         for (USUARIO user : usuarios) {
-            if (user != null && !user.equals(loggedInUser)) {
+            if (user != null && user.getEstado() && !loggedInUser.getUsuario().equals(loggedInUser.getUsuario())) {
                 lista_usuario.addElement(user.getUsuario());
             }
         }
+
     }
 
     /**
@@ -416,9 +439,9 @@ public class PROFILE extends javax.swing.JFrame {
             if (response == JOptionPane.YES_OPTION) {
                 usuario.setEstado(false);
                 usuario.setEnSession(false);
-                
+
                 JOptionPane.showMessageDialog(null, "Su cuenta ha sido desactivada.");
-                LOG_in log=new LOG_in(this.userDatabase);
+                LOG_in log = new LOG_in(this.userDatabase);
                 log.setVisible(true);
                 this.dispose();
             } else if (response == JOptionPane.NO_OPTION) {
@@ -436,12 +459,14 @@ public class PROFILE extends javax.swing.JFrame {
     private void usuarios_showcaseValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_usuarios_showcaseValueChanged
         // TODO add your handling code here:
         if (!evt.getValueIsAdjusting()) {
-            String selectedUsername = usuarios_showcase.getSelectedValue();
-
-            if (selectedUsername != null) {
-                Profile_otro_usuario otro = new Profile_otro_usuario(this.userDatabase, selectedUsername);
-                otro.setVisible(true);
-                this.dispose();
+            int selectedIndex = usuarios_showcase.getSelectedIndex();
+            if (selectedIndex != -1) {
+                String selectedUsername = listaRealUsuarios.getElementAt(selectedIndex);
+                if (selectedUsername != null) {
+                    Profile_otro_usuario otro = new Profile_otro_usuario(this.userDatabase, selectedUsername);
+                    otro.setVisible(true);
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_usuarios_showcaseValueChanged
@@ -465,11 +490,17 @@ public class PROFILE extends javax.swing.JFrame {
         int numeroSeguidos = user.getFollowingCount();
 
         String FOLLOWING = "Usuarios que sigues:\n";
-        if (numeroSeguidos > 0) {
-            for (int contador = 0; contador < numeroSeguidos; contador++) {
-                FOLLOWING += followingList[contador].getUsuario() + "\n";
+        int activeFollowingCount = 0;
+
+        for (int contador = 0; contador < numeroSeguidos; contador++) {
+            USUARIO followedUser = followingList[contador];
+            if (followedUser != null && followedUser.getEstado()) {
+                FOLLOWING += followedUser.getUsuario() + "\n";
+                activeFollowingCount++;
             }
-        } else {
+        }
+
+        if (activeFollowingCount == 0) {
             FOLLOWING += "No sigues a nadie.";
         }
 
@@ -478,17 +509,23 @@ public class PROFILE extends javax.swing.JFrame {
     }//GEN-LAST:event_MostrarFollowingMouseClicked
 
     private void MostrarFollowersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarFollowersMouseClicked
-        USUARIO user = this.userDatabase.getUserInSession();
 
+        USUARIO user = this.userDatabase.getUserInSession();
         USUARIO[] followersList = user.getFollowers();
         int numeroSeguidores = user.getFollowersCount();
 
         String FOLLOWERS = "Usuarios que te siguen:\n";
-        if (numeroSeguidores > 0) {
-            for (int contador = 0; contador < numeroSeguidores; contador++) {
-                FOLLOWERS += followersList[contador].getUsuario() + "\n";
+        int activeFollowersCount = 0;
+
+        for (int contador = 0; contador < numeroSeguidores; contador++) {
+            USUARIO followerUser = followersList[contador];
+            if (followerUser != null && followerUser.getEstado()) {
+                FOLLOWERS += followerUser.getUsuario() + "\n";
+                activeFollowersCount++;
             }
-        } else {
+        }
+
+        if (activeFollowersCount == 0) {
             FOLLOWERS += "No te sigue nadie.";
         }
 
@@ -502,14 +539,33 @@ public class PROFILE extends javax.swing.JFrame {
         USUARIO loggedInUser = this.userDatabase.getUserInSession();
 
         lista_usuario.clear();
+        listaRealUsuarios.clear();
 
         if (buscar.isEmpty()) {
             lista_usuario.clear();
+            listaRealUsuarios.clear();
         } else if (usuarios != null) {
             for (USUARIO user : usuarios) {
                 if (user != null && user.getUsuario() != null) {
-                    if (user.getUsuario().toLowerCase().contains(buscar) && !user.equals(loggedInUser)) {
-                        lista_usuario.addElement(user.getUsuario());
+                    if (user.getUsuario().toLowerCase().contains(buscar) && user.getEstado() && !user.equals(loggedInUser)) {
+                        String nombreUsuarioReal = user.getUsuario(); 
+                        String nombreParaMostrar = nombreUsuarioReal;
+
+                        USUARIO[] followingList = loggedInUser.getFollowing();
+                        boolean founduser=false;
+                        for (USUARIO followedUser : followingList) {
+                            if (followedUser != null && followedUser.equals(user) && followedUser.getEstado()) {
+                                founduser=true;
+                                break;
+                            }
+                        }
+                        if (founduser) {
+                            nombreParaMostrar += " - following";
+                        }else{
+                            nombreParaMostrar += " - Not following";
+                        }
+                        listaRealUsuarios.addElement(nombreUsuarioReal);
+                        lista_usuario.addElement(nombreParaMostrar);
                     }
                 }
             }

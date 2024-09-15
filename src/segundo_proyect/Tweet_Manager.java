@@ -4,80 +4,139 @@
  */
 package segundo_proyect;
 
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Laura Sabillon
  */
 public class Tweet_Manager {
 
-//    private static Tweet_Manager instance;
-//    private Tweets[] timeline;
-//    private int tweetCount;
-//
-//    public Tweet_Manager(int size) {
-//        timeline = new Tweets[size];
-//        tweetCount = 0;
-//    }
-//
-//    public static Tweet_Manager getInstance(int size) {
-//        if (instance == null) {
-//            instance = new Tweet_Manager(size);
-//        }
-//        return instance;
-//    }
-//
-//    public void postTweet(String contenido, users user) {
-//        if (tweetCount < timeline.length) {
-//            Tweets newTweet = new Tweets(contenido, user);
-//            timeline[tweetCount] = newTweet;
-//            tweetCount++;
-//        }
-//    }
-//
-//    public String getTweetsByHashtag(String hashtag) {
-//        String result = "";
-//        for (int index = 0; index < tweetCount; index++) {
-//            if (timeline[index] != null && timeline[index].containsHashtag(hashtag)) {
-//                result += timeline[index].post() + "\n";
-//            }
-//        }
-//        return result;
-//    }
-//
-//    public String getTimeline() {
-//        String timelineString = "";
-//
-//        if (true) {
-//            for (int index = tweetCount - 1; index >= 0; index--) {
-//                timelineString += timeline[index].post() + "\n";
-//            }
-//        }
-//        return timelineString;
-//    }
-//
-//    public String getMentioningUser(users currentUser) {
-//        String mentions = "";
-//        for (int index = tweetCount - 1; index >= 0; index--) {
-//            if (timeline[index].interracion(currentUser)) {
-//                mentions += timeline[index].post() + "\n";
-//            }
-//        }
-//        return mentions;
-//    }
-//
-//    public String TimelineUser(users currentUser) {
-//        String contenido = "";
-//        String usuario = currentUser.getUsernameInSession();
-//
-//        if (usuario != null) {
-//            for (int index = tweetCount - 1; index >= 0; index--) {
-//                if (timeline[index] != null && timeline[index].getCreador().equals(usuario)) {
-//                    contenido += timeline[index].post() + "\n";
-//                }
-//            }
-//            return contenido;
-//        }
-//        return null;
-//    }
-//
+    private USUARIO[] usuarios;
+    private String[] allTweets;
+    private String[] tweetOwners;
+    private int tweetCount = 0;
+    private static Tweet_Manager instance;
+
+    public Tweet_Manager(USUARIO[] usuarios) {
+        this.usuarios = usuarios;
+        this.allTweets = new String[100];
+        this.tweetOwners = new String[200];
+    }
+
+    public static Tweet_Manager getInstance(USUARIO[] usuarios) {
+        if (instance == null) {
+            instance = new Tweet_Manager(usuarios);
+        }
+        return instance;
+    }
+
+    public void addTweet(USUARIO usuario, String tweet) {
+        allTweets[tweetCount] = tweet;
+        tweetOwners[tweetCount] = usuario.getUsuario();
+        tweetCount++;
+
+    }
+
+    public String mostrarTwits(USUARIO loggedUser) {
+        String totalTweets = "";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (int contador = tweetCount -1; contador >= 0; contador--) {
+            USUARIO tweetUser = findUserByUsername(tweetOwners[contador]);
+
+            if (tweetUser != null && tweetUser.getEstado() && (loggedUser.equals(tweetUser) || isFollowing(loggedUser, tweetOwners[contador]))) {
+                totalTweets += "Usuario: " + tweetOwners[contador] + "\n"
+                        + allTweets[contador] + "\n"
+                        + "Fecha de publicacion: " + formatter.format(Calendar.getInstance().getTime()) + "\n"
+                        + "---------------------------------------------------------------------------\n";
+            }
+        }
+
+        return totalTweets;
+    }
+
+    private USUARIO findUserByUsername(String username) {
+        for (USUARIO user : usuarios) {
+            if (user != null && user.getUsuario().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public boolean isFollowing(USUARIO loggedUser, String tweetOwner) {
+        USUARIO tweetUser = findUserByUsername(tweetOwner);
+        if (tweetUser == null || !tweetUser.getEstado()) {
+            return false; 
+        }
+
+        for (int i = 0; i < loggedUser.getFollowingCount(); i++) {
+            if (loggedUser.getFollowing()[i] != null
+                    && loggedUser.getFollowing()[i].getUsuario().equals(tweetUser.getUsuario())) {
+                return true; 
+            }
+        }
+        return false; 
+    }
+
+    public String getTweetsByHashtag(String hashtag) {
+        String HastagTweets = "";
+        String hashtagSearch = "#" + hashtag.trim();
+
+        for (USUARIO user : usuarios) {
+            if (user != null && user.getEstado()) {
+                String[] userTweets = user.getTweets();
+                if (userTweets != null) {
+                    for (int contador = 0; contador < userTweets.length; contador++) {
+                        String tweet = userTweets[contador];
+                        if (tweet != null && tweet.contains(hashtagSearch)) {
+                            HastagTweets += "Usuario: " + user.getUsuario() + "\n" + tweet + "\n";
+                        }
+                    }
+                }
+            }
+        }
+
+        if (HastagTweets.isEmpty()) {
+            return "No se encuentra ningún tweet con #" + hashtag;
+        }
+        return HastagTweets;
+    }
+
+    public String getMention(String mentionedUser) {
+        String MentionedTweets = "";
+        String mentionSearch = "@" + mentionedUser.trim();
+
+        for (USUARIO user : usuarios) {
+            if (user != null && user.getEstado()) {
+                String[] userTweets = user.getTweets();
+                if (userTweets != null) {
+                    for (int contador = 0; contador < userTweets.length; contador++) {
+                        String tweet = userTweets[contador];
+                        if (tweet != null) {
+                            String[] words = tweet.split("\\s+");
+                            for (String word : words) {
+                                if (word.equals(mentionSearch)) {
+                                    MentionedTweets += "Usuario: " + user.getUsuario() + "\n" + tweet + "\n";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (MentionedTweets.isEmpty()) {
+            return "";
+        }
+        return MentionedTweets;
+    }
+
+
+    public String[] getOrderedTweets() {
+        return allTweets;
+    }
 }

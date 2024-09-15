@@ -19,7 +19,6 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
 
     private USUARIO[] usuarios;
     private String selectedUsername;
-    private Tweet_Manager tweetManager;
     private users userDatabase;
 
     /**
@@ -30,9 +29,7 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         this.selectedUsername = selectedUsername;
         this.usuarios = userDatabase.getUsuarios();
 
-        USUARIO user = userDatabase.buscar(selectedUsername);
-        this.followers.setText("Followers: " + String.valueOf(user.getFollowersCount()));
-        this.following.setText("Following: " + String.valueOf(user.getFollowingCount()));
+        actualizarContadoresPerfilOtroUsuario();
         actualizarEstadoBoton();
         
         this.addWindowListener(new WindowAdapter() {
@@ -196,7 +193,29 @@ public class Profile_otro_usuario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+    private void actualizarContadoresPerfilOtroUsuario() {
+    USUARIO user = userDatabase.buscar(selectedUsername);
+    if (user != null) {
+        USUARIO[] followerList = user.getFollowers();
+        int activeFollowers = 0;
+        for (USUARIO follower : followerList) {
+            if (follower != null && follower.getEstado()) {
+                activeFollowers++;
+            }
+        }
+
+        USUARIO[] followingList = user.getFollowing();
+        int activeFollowings = 0;
+        for (USUARIO followingUser : followingList) {
+            if (followingUser != null && followingUser.getEstado()) {
+                activeFollowings++;
+            }
+        }
+
+        this.followers.setText("Followers: " + String.valueOf(activeFollowers));
+        this.following.setText("Following: " + String.valueOf(activeFollowings));
+    }
+}
      private void actualizarTwits() {
         USUARIO twitsOtroUsuario = userDatabase.buscar(selectedUsername);        
         String totalTweets = twitsOtroUsuario.mostrarTwit();

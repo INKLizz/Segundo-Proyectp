@@ -20,9 +20,9 @@ public class users {
 
     //BUSCAR Y AGREGAR USUARIOS
     USUARIO buscar(String usuario) {
-        for (USUARIO use : usuarios) {
-            if (use != null && use.getUsuario().equals(usuario)) {
-                return use;
+        for (USUARIO user : usuarios) {
+            if (user != null && user.getUsuario().equals(usuario)) {
+                return user;
             }
         }
         return null;
@@ -64,7 +64,6 @@ public class users {
         return null;
     }
 
-    //DATA RETRIEVE
     public USUARIO getUserInSession() {
         for (USUARIO indice : usuarios) {
             if (indice != null) {
@@ -76,68 +75,9 @@ public class users {
         return null;
     }
 
-    //FUERA DE SESSION
-    public boolean outSession() {
-        USUARIO user = getUserInSession();
-        if (user != null) {
-            user.setEnSession(false);
-            return true;
-        }
-        return false;
-    }
-
     //USUARIOS LIST
     public USUARIO[] getUsuarios() {
         return usuarios;
     }
-
-    public String getTweetsByHashtag(String hashtag) {
-        String HastagTweets = "";
-        String hashtagSearch = "#" + hashtag.trim();
-
-        for (USUARIO user : usuarios) {
-            if (user != null) {
-                String[] userTweets = user.getTweets();
-                for (int contador = 0; contador < userTweets.length; contador++) {
-                    String tweet = userTweets[contador];
-                    if (tweet != null && tweet.contains(hashtagSearch)) {
-                        HastagTweets += tweet + "-- Usuario: " + user.getUsuario() + "\n";
-                    }
-                }
-            }
-        }
-
-        if (HastagTweets.isEmpty()) {
-            return "No se encuentra ningún tweet con #" + hashtag;
-        }
-        return HastagTweets;
-    }
-
-    public String getTweetsByMention(String mentionedUser) {
-    String MentionedTweets = "";
-    String mentionSearch = "@" + mentionedUser.trim();
-
-    for (USUARIO user : usuarios) {
-        if (user != null) {
-            String[] userTweets = user.getTweets();
-
-            for (int contador = 0; contador < userTweets.length; contador++) {
-                String tweet = userTweets[contador];
-                if (tweet != null) {
-                    String[] words = tweet.split("\\s+");
-                    for (String word : words) {
-                        if (word.equals(mentionSearch)) {
-                            MentionedTweets += tweet + "\n -- Usuario: " + user.getUsuario() + "\n";
-                            break; 
-                        }
-                    }
-                }
-            }
-        }
-    }
-    if (MentionedTweets.isEmpty()) {
-        return "";
-    }
-    return MentionedTweets;
-    }
+    
 }

@@ -9,8 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.SimpleDateFormat;
-
 
 /**
  *
@@ -21,14 +19,14 @@ public class MENU_HOME extends javax.swing.JFrame {
     //LLAMAR VARIABLES
     private users userDatabase;
     private Tweet_Manager tweetManager;
-    private users usuariosManager;
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy, HH:mm:ss");
 
     /**
      * Creates new form MENU_HOME
      */
     public MENU_HOME(users userDatabase) {
         this.userDatabase = userDatabase;
+        USUARIO[] usuarios = userDatabase.getUsuarios();
+        this.tweetManager = Tweet_Manager.getInstance(usuarios);
         initComponents();
         getContentPane().setBackground(java.awt.Color.WHITE);
 
@@ -42,15 +40,10 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void actualizarTwits() {
         USUARIO loggedUser = userDatabase.getUserInSession();
-        String totalTweets = loggedUser.mostrarTwit();
-        for (int contador = 0; contador < loggedUser.getFollowingCount(); contador++) {
-            totalTweets += loggedUser.getFollowing()[contador].mostrarTwit();
-        }
-        this.twit_show.setText(totalTweets);
+        String totalTweets = tweetManager.mostrarTwits(loggedUser);
+        twit_show.setText(totalTweets);
         System.out.println(totalTweets);
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -399,7 +392,10 @@ public class MENU_HOME extends javax.swing.JFrame {
         USUARIO loggedUser = userDatabase.getUserInSession();
         if (!texting.getText().trim().isEmpty()) {
             loggedUser.agregartwit(texting.getText());
+            Tweet_Manager tweetManager = Tweet_Manager.getInstance(userDatabase.getUsuarios());
+            tweetManager.addTweet(loggedUser, texting.getText());
             texting.setText("");
+
             JOptionPane.showMessageDialog(this, "Su tweet se ha publicado exitosamente!!");
 
             actualizarTwits();
@@ -410,10 +406,6 @@ public class MENU_HOME extends javax.swing.JFrame {
 
     private void textingAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_textingAncestorAdded
         // TODO add your handling code here:
-        USUARIO loggedUser = userDatabase.getUserInSession();
-        if (loggedUser != null) {
-            String twitShowContent = twit_show.getText();
-        }
     }//GEN-LAST:event_textingAncestorAdded
 
     private void textingKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textingKeyPressed
@@ -433,8 +425,7 @@ public class MENU_HOME extends javax.swing.JFrame {
         String hashtag = buscar_hashtag.getText().trim();
 
         if (!hashtag.isEmpty()) {
-            users allusers = userDatabase;
-            String results = allusers.getTweetsByHashtag(hashtag);
+            String results = tweetManager.getTweetsByHashtag(hashtag);
             hashtag_twit.setText(results);
         } else {
             hashtag_twit.setText("No se ingresó ningún hashtag #.");
@@ -451,11 +442,11 @@ public class MENU_HOME extends javax.swing.JFrame {
     }//GEN-LAST:event_MENCIONESAncestorAdded
 
     private void mencion_showAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_mencion_showAncestorAdded
-        // TODO add your handling code here:
         mencion_show.setEditable(false);
         users Users = userDatabase;
+
         String currentUser = Users.getUsernameInSession();
-        String mentions = Users.getTweetsByMention(currentUser);
+        String mentions = tweetManager.getMention(currentUser);
         mencion_show.setText(mentions);
     }//GEN-LAST:event_mencion_showAncestorAdded
 
@@ -491,7 +482,6 @@ public class MENU_HOME extends javax.swing.JFrame {
         }
         //</editor-fold>
         users userDatabase = new users(100);
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

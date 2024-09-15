@@ -14,7 +14,6 @@ import java.util.Calendar;
 public class USUARIO {
 
     // VARIABLES
-    private users userDatabase;
     private String nombre;
     private String usuario;
     private String password;
@@ -28,6 +27,7 @@ public class USUARIO {
     private int followingCount;
     private int followersCount;
     private String[] tweets;
+    private Calendar[] tweetDates;
     private int posicionTwit;
 
     // CONSTRUCTOR
@@ -45,6 +45,7 @@ public class USUARIO {
         this.followingCount = 0;
         this.followersCount = 0;
         this.tweets = new String[100];
+        this.tweetDates = new Calendar[100];
         posicionTwit = 0;
     }
 
@@ -141,10 +142,6 @@ public class USUARIO {
         }
     }
 
-    public void addFollower(USUARIO user) {
-        followers[followersCount++] = user;
-    }
-
     public void removeFollower(USUARIO user) {
         int index = -1;
         for (int contador = 0; contador < followersCount; contador++) {
@@ -161,6 +158,26 @@ public class USUARIO {
         }
     }
 
+    public void removeFollowing(USUARIO user) {
+        int index = -1;
+        for (int contador = 0; contador < followingCount; contador++) {
+            if (following[contador] != null && following[contador].getUsuario().equals(user.getUsuario())) {
+                index = contador;
+                break;
+            }
+        }
+        if (index != -1) {
+            for (int contador = index; contador < followingCount - 1; contador++) {
+                following[contador] = following[contador + 1];
+            }
+            following[--followingCount] = null;
+        }
+    }
+
+    public void addFollower(USUARIO user) {
+        followers[followersCount++] = user;
+    }
+
     public void agregartwit(String twit) {
         this.tweets[posicionTwit] = twit;
         posicionTwit++;
@@ -174,15 +191,14 @@ public class USUARIO {
         String formattedTime = formatter.format(fecha.getTime());
         String twits = "";
 
-        for (int contador = 0; contador < posicionTwit; contador++) {
-            twits += tweets[contador] + " - Usuario: " + this.getUsuario() + "\n" + "fecha de publicacion: " + formattedTime + "\n" + "---------------------------------------------------------------------------" + "\n";
+        for (int contador = posicionTwit - 1; contador >= 0; contador--) {
+            twits += "Usuario: " + this.getUsuario() + "\n" + tweets[contador] + "\nfecha de publicacion: " + formattedTime + "\n" + "---------------------------------------------------------------------------" + "\n";
         }
 
         return twits;
     }
 
-    public String[] getTweets(){
+    public String[] getTweets() {
         return tweets;
     }
-    
 }
